@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 /// App-standard filled button. Shows a spinner and disables interaction when
@@ -26,8 +27,7 @@ class PrimaryButton extends StatelessWidget {
           ? SizedBox(
               height: 22,
               width: 22,
-              child: CircularProgressIndicator(
-                strokeWidth: 2.5,
+              child: CupertinoActivityIndicator(
                 color: scheme.onPrimary,
               ),
             )

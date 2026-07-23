@@ -18,6 +18,11 @@ class AppTextField extends StatelessWidget {
     this.textInputAction,
     this.suffix,
     this.autofillHints,
+    this.focusNode,
+    this.autofocus = false,
+    this.onFieldSubmitted,
+    this.textCapitalization = TextCapitalization.none,
+    this.isDense = false,
   });
 
   final String label;
@@ -30,6 +35,14 @@ class AppTextField extends StatelessWidget {
   final TextInputAction? textInputAction;
   final Widget? suffix;
   final Iterable<String>? autofillHints;
+  final FocusNode? focusNode;
+  final bool autofocus;
+  final ValueChanged<String>? onFieldSubmitted;
+  final TextCapitalization textCapitalization;
+
+  /// Shrinks label + field padding for tight spaces (e.g. a landscape
+  /// inline search bar) without changing the default look elsewhere.
+  final bool isDense;
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +50,8 @@ class AppTextField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: textTheme.labelMedium),
-        const SizedBox(height: AppSpacing.sm),
+        Text(label, style: isDense ? textTheme.labelSmall : textTheme.labelMedium),
+        SizedBox(height: isDense ? AppSpacing.xs : AppSpacing.sm),
         TextFormField(
           controller: controller,
           onChanged: onChanged,
@@ -46,10 +59,18 @@ class AppTextField extends StatelessWidget {
           keyboardType: keyboardType,
           textInputAction: textInputAction,
           autofillHints: autofillHints,
+          focusNode: focusNode,
+          autofocus: autofocus,
+          onFieldSubmitted: onFieldSubmitted,
+          textCapitalization: textCapitalization,
           decoration: InputDecoration(
             hintText: hint,
             errorText: errorText,
             suffixIcon: suffix,
+            isDense: isDense,
+            contentPadding: isDense
+                ? const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm)
+                : null,
           ),
         ),
       ],

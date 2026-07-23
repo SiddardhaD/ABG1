@@ -15,16 +15,16 @@ class ThemeController extends _$ThemeController {
   @override
   ThemeMode build() {
     _load();
-    return ThemeMode.system;
+    return ThemeMode.light;
   }
 
   Future<void> _load() async {
     final prefs = await SharedPreferences.getInstance();
     final stored = prefs.getString(_themeKey);
     state = switch (stored) {
-      'light' => ThemeMode.light,
       'dark' => ThemeMode.dark,
-      _ => ThemeMode.system,
+      'system' => ThemeMode.system,
+      _ => ThemeMode.light,
     };
   }
 

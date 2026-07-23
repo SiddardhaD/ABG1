@@ -1,4 +1,4 @@
-package com.example.riverpod_boilerplate_code
+package com.abg.riverpod_boilerplate_code
 
 import io.flutter.embedding.android.FlutterActivity
 

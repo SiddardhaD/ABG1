@@ -45,6 +45,10 @@ dependencies:
   multiple_result: ^5.1.0
   logging: ^1.2.0
 
+  # Barcode Scanner (camera fallback + Zebra DataWedge hardware scanning)
+  mobile_scanner: ^5.2.3
+  flutter_datawedge: ^2.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -18,4 +18,24 @@ class AppConfig {
   /// instead of hitting the network. The auth feature uses this so the
   /// boilerplate is runnable out of the box.
   static const bool useMockData = true;
+
+  // ── JDE Orchestrator (Location Availability Inquiry app) ────────────
+  //
+  // Overridable via --dart-define, e.g.:
+  //   flutter run -t lib/location_availability_inquiry.dart \
+  //     --dart-define=JDE_BASE_URL=http://host:port/jderest/v3/orchestrator/
+  static const String jdeBaseUrl = String.fromEnvironment(
+    'JDE_BASE_URL',
+    defaultValue: 'http://10.10.2.132:6070/jderest/v3/orchestrator/',
+  );
+
+  /// Basic Auth credentials for the JDE orchestrator (not JWT).
+  static const String jdeBasicAuthUsername = String.fromEnvironment(
+    'JDE_USERNAME',
+    defaultValue: 'PWRMOHAMED',
+  );
+  static const String jdeBasicAuthPassword = String.fromEnvironment(
+    'JDE_PASSWORD',
+    defaultValue: 'PWRMOHAMED',
+  );
 }

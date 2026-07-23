@@ -6,7 +6,7 @@ part of 'theme_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$themeControllerHash() => r'c0ff57e47904efa8c6b1d7194effe8b20b5376fb';
+String _$themeControllerHash() => r'c68665375b166e80ff0b9b4a16c0a94447727cb2';
 
 /// App theme mode (system / light / dark), persisted to [SharedPreferences].
 ///

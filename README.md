@@ -96,6 +96,41 @@ flutter run
 5. Register the route in `core/router/app_router.dart` + `named_route.dart`.
 6. Run build_runner.
 
+## Multi-app setup
+
+This repository hosts 7 separate client apps from one shared codebase.
+
+- Shared infrastructure stays in `lib/core`
+- App-specific code lives under `lib/apps/<slug>`, each owning its own screens, view models, and router
+- Each app has its own Android product flavor (distinct `applicationId` + app name), so they install as separate apps on the same device
+
+| App | Entry point | Android flavor |
+| --- | --- | --- |
+| Location Availability Inquiry | `lib/location_availability_inquiry.dart` | `locationAvailabilityInquiry` |
+| Order to be Picked | `lib/order_to_be_picked.dart` | `orderToBePicked` |
+| Order to be Shipped | `lib/order_to_be_shipped.dart` | `orderToBeShipped` |
+| Delivery Note Print | `lib/delivery_note_print.dart` | `deliveryNotePrint` |
+| Invoice | `lib/invoice.dart` | `invoice` |
+| PO to Receive | `lib/po_to_receive.dart` | `poToReceive` |
+| GRN to Print | `lib/grn_to_print.dart` | `grnToPrint` |
+
+Run one on Android (flavor required so it installs under its own package name/icon):
+
+```bash
+flutter run -t lib/location_availability_inquiry.dart --flavor locationAvailabilityInquiry
+```
+
+Or use the matching launch config in `.vscode/launch.json` (one per app).
+
+iOS flavors (distinct bundle IDs/schemes per app) aren't configured yet — only Android
+product flavors are set up so far. Until that's added, `-t lib/<app>.dart` on iOS runs
+under the single default bundle ID for local testing.
+
+To add another product: create `lib/apps/<slug>/` (app widget + router + `features/home`),
+an entry file `lib/<slug>.dart`, a case in the `AppFlavor` enum
+(`core/config/app_flavor.dart`), a branch in `App`'s switch (`app.dart`), and a matching
+Android `productFlavor` in `android/app/build.gradle.kts`.
+
 ## Notes
 
 - `retrofit` is pinned to `4.6.0` — see the comment in `pubspec.yaml` for why.

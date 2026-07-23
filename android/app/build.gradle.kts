@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.riverpod_boilerplate_code"
+    namespace = "com.abg.riverpod_boilerplate_code"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -20,14 +20,53 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.example.riverpod_boilerplate_code"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
+        applicationId = "com.abg"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+    }
+
+    // Each product flavor is one of the client's separate apps. The
+    // applicationIdSuffix + app_name resValue give each flavor a distinct
+    // package name and home-screen label, so they install side by side.
+    flavorDimensions += "app"
+    productFlavors {
+        create("locationAvailabilityInquiry") {
+            dimension = "app"
+            applicationIdSuffix = ".locationavailabilityinquiry"
+            resValue("string", "app_name", "Location Availability Inquiry")
+        }
+        create("orderToBePicked") {
+            dimension = "app"
+            applicationIdSuffix = ".ordertobepicked"
+            resValue("string", "app_name", "Order to be Picked")
+        }
+        create("orderToBeShipped") {
+            dimension = "app"
+            applicationIdSuffix = ".ordertobeshipped"
+            resValue("string", "app_name", "Order to be Shipped")
+        }
+        create("deliveryNotePrint") {
+            dimension = "app"
+            applicationIdSuffix = ".deliverynoteprint"
+            resValue("string", "app_name", "Delivery Note Print")
+        }
+        create("invoice") {
+            dimension = "app"
+            applicationIdSuffix = ".invoice"
+            resValue("string", "app_name", "Invoice")
+        }
+        create("poToReceive") {
+            dimension = "app"
+            applicationIdSuffix = ".potoreceive"
+            resValue("string", "app_name", "PO to Receive")
+        }
+        create("grnToPrint") {
+            dimension = "app"
+            applicationIdSuffix = ".grntoprint"
+            resValue("string", "app_name", "GRN to Print")
+        }
     }
 
     buildTypes {

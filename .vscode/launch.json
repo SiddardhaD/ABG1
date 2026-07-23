@@ -1,25 +1,54 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "riverpod_boilerplate_code",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "riverpod_boilerplate_code (profile mode)",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile"
-        },
-        {
-            "name": "riverpod_boilerplate_code (release mode)",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "release"
-        }
-    ]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Location Availability Inquiry",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/location_availability_inquiry.dart",
+      "args": ["--flavor", "locationAvailabilityInquiry"]
+    },
+    {
+      "name": "Order to be Picked",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/order_to_be_picked.dart",
+      "args": ["--flavor", "orderToBePicked"]
+    },
+    {
+      "name": "Order to be Shipped",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/order_to_be_shipped.dart",
+      "args": ["--flavor", "orderToBeShipped"]
+    },
+    {
+      "name": "Delivery Note Print",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/delivery_note_print.dart",
+      "args": ["--flavor", "deliveryNotePrint"]
+    },
+    {
+      "name": "Invoice",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/invoice.dart",
+      "args": ["--flavor", "invoice"]
+    },
+    {
+      "name": "PO to Receive",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/po_to_receive.dart",
+      "args": ["--flavor", "poToReceive"]
+    },
+    {
+      "name": "GRN to Print",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/grn_to_print.dart",
+      "args": ["--flavor", "grnToPrint"]
+    }
+  ]
 }
