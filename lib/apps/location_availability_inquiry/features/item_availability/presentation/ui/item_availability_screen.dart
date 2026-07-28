@@ -7,7 +7,7 @@ import '../../../../../../core/base/base_consumer_state.dart';
 import '../../../../../../core/common/widgets/app_text_field.dart';
 import '../../../../../../core/common/widgets/exit_confirmation.dart';
 import '../../../../../../core/common/widgets/primary_button.dart';
-import '../../../../../../core/local_auth/local_session_controller.dart';
+import '../../../../../../core/jde_auth/jde_session_controller.dart';
 import '../../../../../../core/scanner/barcode_scanner_screen.dart';
 import '../../../../../../core/theme/app_colors.dart';
 import '../../../../../../core/theme/app_radius.dart';
@@ -123,10 +123,18 @@ class _ItemAvailabilityScreenState extends BaseConsumerState<ItemAvailabilityScr
       ),
     );
 
-    if (shouldLogout == true) {
-      await ref.read(localSessionControllerProvider.notifier).logout();
-      // The router's redirect (driven by LocalSessionController) sends the
-      // user back to /login automatically once the session state changes.
+    if (shouldLogout != true) return;
+
+    final success = await ref.read(jdeSessionControllerProvider.notifier).logout();
+    // The router's redirect (driven by JdeSessionController) sends the user
+    // back to /login automatically once the session state changes — but
+    // only when the API confirmed the logout (HTTP 200). On failure the
+    // session stays active; surface why so the user can retry.
+    if (!success && mounted) {
+      final message = ref.read(jdeSessionControllerProvider).errorMessage;
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(SnackBar(content: Text(message.isEmpty ? 'Logout failed.' : message)));
     }
   }
 

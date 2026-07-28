@@ -2,6 +2,13 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Order to be Shipped",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/order_to_be_shipped.dart",
+      "args": ["--flavor", "orderToBeShipped"]
+    },
+    {
       "name": "Location Availability Inquiry",
       "request": "launch",
       "type": "dart",
@@ -14,13 +21,6 @@
       "type": "dart",
       "program": "lib/order_to_be_picked.dart",
       "args": ["--flavor", "orderToBePicked"]
-    },
-    {
-      "name": "Order to be Shipped",
-      "request": "launch",
-      "type": "dart",
-      "program": "lib/order_to_be_shipped.dart",
-      "args": ["--flavor", "orderToBeShipped"]
     },
     {
       "name": "Delivery Note Print",

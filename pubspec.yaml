@@ -49,6 +49,9 @@ dependencies:
   mobile_scanner: ^5.2.3
   flutter_datawedge: ^2.1.0
 
+  # Device identity (sent as `deviceName` on JDE login/logout)
+  device_info_plus: ^11.2.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

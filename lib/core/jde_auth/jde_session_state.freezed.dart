@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'local_session_state.dart';
+part of 'jde_session_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -16,39 +16,47 @@ final _privateConstructorUsedError = UnsupportedError(
 );
 
 /// @nodoc
-mixin _$LocalSessionState {
-  LocalAuthStatus get status => throw _privateConstructorUsedError;
+mixin _$JdeSessionState {
+  JdeAuthStatus get status => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   String get errorMessage => throw _privateConstructorUsedError;
+  String? get username => throw _privateConstructorUsedError;
+  String? get alphaName => throw _privateConstructorUsedError;
 
-  /// Create a copy of LocalSessionState
+  /// Create a copy of JdeSessionState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $LocalSessionStateCopyWith<LocalSessionState> get copyWith =>
+  $JdeSessionStateCopyWith<JdeSessionState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $LocalSessionStateCopyWith<$Res> {
-  factory $LocalSessionStateCopyWith(
-    LocalSessionState value,
-    $Res Function(LocalSessionState) then,
-  ) = _$LocalSessionStateCopyWithImpl<$Res, LocalSessionState>;
+abstract class $JdeSessionStateCopyWith<$Res> {
+  factory $JdeSessionStateCopyWith(
+    JdeSessionState value,
+    $Res Function(JdeSessionState) then,
+  ) = _$JdeSessionStateCopyWithImpl<$Res, JdeSessionState>;
   @useResult
-  $Res call({LocalAuthStatus status, bool isLoading, String errorMessage});
+  $Res call({
+    JdeAuthStatus status,
+    bool isLoading,
+    String errorMessage,
+    String? username,
+    String? alphaName,
+  });
 }
 
 /// @nodoc
-class _$LocalSessionStateCopyWithImpl<$Res, $Val extends LocalSessionState>
-    implements $LocalSessionStateCopyWith<$Res> {
-  _$LocalSessionStateCopyWithImpl(this._value, this._then);
+class _$JdeSessionStateCopyWithImpl<$Res, $Val extends JdeSessionState>
+    implements $JdeSessionStateCopyWith<$Res> {
+  _$JdeSessionStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of LocalSessionState
+  /// Create a copy of JdeSessionState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -56,13 +64,15 @@ class _$LocalSessionStateCopyWithImpl<$Res, $Val extends LocalSessionState>
     Object? status = null,
     Object? isLoading = null,
     Object? errorMessage = null,
+    Object? username = freezed,
+    Object? alphaName = freezed,
   }) {
     return _then(
       _value.copyWith(
             status: null == status
                 ? _value.status
                 : status // ignore: cast_nullable_to_non_nullable
-                      as LocalAuthStatus,
+                      as JdeAuthStatus,
             isLoading: null == isLoading
                 ? _value.isLoading
                 : isLoading // ignore: cast_nullable_to_non_nullable
@@ -71,6 +81,14 @@ class _$LocalSessionStateCopyWithImpl<$Res, $Val extends LocalSessionState>
                 ? _value.errorMessage
                 : errorMessage // ignore: cast_nullable_to_non_nullable
                       as String,
+            username: freezed == username
+                ? _value.username
+                : username // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            alphaName: freezed == alphaName
+                ? _value.alphaName
+                : alphaName // ignore: cast_nullable_to_non_nullable
+                      as String?,
           )
           as $Val,
     );
@@ -78,27 +96,33 @@ class _$LocalSessionStateCopyWithImpl<$Res, $Val extends LocalSessionState>
 }
 
 /// @nodoc
-abstract class _$$LocalSessionStateImplCopyWith<$Res>
-    implements $LocalSessionStateCopyWith<$Res> {
-  factory _$$LocalSessionStateImplCopyWith(
-    _$LocalSessionStateImpl value,
-    $Res Function(_$LocalSessionStateImpl) then,
-  ) = __$$LocalSessionStateImplCopyWithImpl<$Res>;
+abstract class _$$JdeSessionStateImplCopyWith<$Res>
+    implements $JdeSessionStateCopyWith<$Res> {
+  factory _$$JdeSessionStateImplCopyWith(
+    _$JdeSessionStateImpl value,
+    $Res Function(_$JdeSessionStateImpl) then,
+  ) = __$$JdeSessionStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({LocalAuthStatus status, bool isLoading, String errorMessage});
+  $Res call({
+    JdeAuthStatus status,
+    bool isLoading,
+    String errorMessage,
+    String? username,
+    String? alphaName,
+  });
 }
 
 /// @nodoc
-class __$$LocalSessionStateImplCopyWithImpl<$Res>
-    extends _$LocalSessionStateCopyWithImpl<$Res, _$LocalSessionStateImpl>
-    implements _$$LocalSessionStateImplCopyWith<$Res> {
-  __$$LocalSessionStateImplCopyWithImpl(
-    _$LocalSessionStateImpl _value,
-    $Res Function(_$LocalSessionStateImpl) _then,
+class __$$JdeSessionStateImplCopyWithImpl<$Res>
+    extends _$JdeSessionStateCopyWithImpl<$Res, _$JdeSessionStateImpl>
+    implements _$$JdeSessionStateImplCopyWith<$Res> {
+  __$$JdeSessionStateImplCopyWithImpl(
+    _$JdeSessionStateImpl _value,
+    $Res Function(_$JdeSessionStateImpl) _then,
   ) : super(_value, _then);
 
-  /// Create a copy of LocalSessionState
+  /// Create a copy of JdeSessionState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -106,13 +130,15 @@ class __$$LocalSessionStateImplCopyWithImpl<$Res>
     Object? status = null,
     Object? isLoading = null,
     Object? errorMessage = null,
+    Object? username = freezed,
+    Object? alphaName = freezed,
   }) {
     return _then(
-      _$LocalSessionStateImpl(
+      _$JdeSessionStateImpl(
         status: null == status
             ? _value.status
             : status // ignore: cast_nullable_to_non_nullable
-                  as LocalAuthStatus,
+                  as JdeAuthStatus,
         isLoading: null == isLoading
             ? _value.isLoading
             : isLoading // ignore: cast_nullable_to_non_nullable
@@ -121,6 +147,14 @@ class __$$LocalSessionStateImplCopyWithImpl<$Res>
             ? _value.errorMessage
             : errorMessage // ignore: cast_nullable_to_non_nullable
                   as String,
+        username: freezed == username
+            ? _value.username
+            : username // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        alphaName: freezed == alphaName
+            ? _value.alphaName
+            : alphaName // ignore: cast_nullable_to_non_nullable
+                  as String?,
       ),
     );
   }
@@ -128,74 +162,97 @@ class __$$LocalSessionStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$LocalSessionStateImpl extends _LocalSessionState {
-  const _$LocalSessionStateImpl({
-    this.status = LocalAuthStatus.unknown,
+class _$JdeSessionStateImpl extends _JdeSessionState {
+  const _$JdeSessionStateImpl({
+    this.status = JdeAuthStatus.unknown,
     this.isLoading = false,
     this.errorMessage = '',
+    this.username,
+    this.alphaName,
   }) : super._();
 
   @override
   @JsonKey()
-  final LocalAuthStatus status;
+  final JdeAuthStatus status;
   @override
   @JsonKey()
   final bool isLoading;
   @override
   @JsonKey()
   final String errorMessage;
+  @override
+  final String? username;
+  @override
+  final String? alphaName;
 
   @override
   String toString() {
-    return 'LocalSessionState(status: $status, isLoading: $isLoading, errorMessage: $errorMessage)';
+    return 'JdeSessionState(status: $status, isLoading: $isLoading, errorMessage: $errorMessage, username: $username, alphaName: $alphaName)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LocalSessionStateImpl &&
+            other is _$JdeSessionStateImpl &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage));
+                other.errorMessage == errorMessage) &&
+            (identical(other.username, username) ||
+                other.username == username) &&
+            (identical(other.alphaName, alphaName) ||
+                other.alphaName == alphaName));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, isLoading, errorMessage);
+  int get hashCode => Object.hash(
+    runtimeType,
+    status,
+    isLoading,
+    errorMessage,
+    username,
+    alphaName,
+  );
 
-  /// Create a copy of LocalSessionState
+  /// Create a copy of JdeSessionState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$LocalSessionStateImplCopyWith<_$LocalSessionStateImpl> get copyWith =>
-      __$$LocalSessionStateImplCopyWithImpl<_$LocalSessionStateImpl>(
+  _$$JdeSessionStateImplCopyWith<_$JdeSessionStateImpl> get copyWith =>
+      __$$JdeSessionStateImplCopyWithImpl<_$JdeSessionStateImpl>(
         this,
         _$identity,
       );
 }
 
-abstract class _LocalSessionState extends LocalSessionState {
-  const factory _LocalSessionState({
-    final LocalAuthStatus status,
+abstract class _JdeSessionState extends JdeSessionState {
+  const factory _JdeSessionState({
+    final JdeAuthStatus status,
     final bool isLoading,
     final String errorMessage,
-  }) = _$LocalSessionStateImpl;
-  const _LocalSessionState._() : super._();
+    final String? username,
+    final String? alphaName,
+  }) = _$JdeSessionStateImpl;
+  const _JdeSessionState._() : super._();
 
   @override
-  LocalAuthStatus get status;
+  JdeAuthStatus get status;
   @override
   bool get isLoading;
   @override
   String get errorMessage;
+  @override
+  String? get username;
+  @override
+  String? get alphaName;
 
-  /// Create a copy of LocalSessionState
+  /// Create a copy of JdeSessionState
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$LocalSessionStateImplCopyWith<_$LocalSessionStateImpl> get copyWith =>
+  _$$JdeSessionStateImplCopyWith<_$JdeSessionStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

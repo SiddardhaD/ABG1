@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,19 +5,18 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../config/app_config.dart';
 import 'interceptors/connectivity_interceptor.dart';
+import 'interceptors/jde_auth_interceptor.dart';
+
+export 'interceptors/jde_auth_interceptor.dart' show skipJdeAuthExtraKey;
 
 part 'jde_dio_provider.g.dart';
 
-/// [Dio] instance for JDE Orchestrator endpoints.
-///
-/// Separate from [dioProvider] because JDE uses static Basic Auth
-/// credentials, not the app's Bearer session token.
+/// [Dio] instance for JDE Orchestrator endpoints (login, logout, and every
+/// business call). Auth is a Bearer token obtained from `jde-login` and
+/// attached per-request by [JdeAuthInterceptor] — see that class for the
+/// `skipJdeAuthExtraKey` escape hatch the login call itself uses.
 @Riverpod(keepAlive: true)
 Dio jdeDio(Ref ref) {
-  final credentials = base64Encode(
-    utf8.encode('${AppConfig.jdeBasicAuthUsername}:${AppConfig.jdeBasicAuthPassword}'),
-  );
-
   final dio = Dio(
     BaseOptions(
       baseUrl: AppConfig.jdeBaseUrl,
@@ -29,13 +26,13 @@ Dio jdeDio(Ref ref) {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': 'Basic $credentials',
       },
     ),
   );
 
   dio.interceptors.addAll([
     ConnectivityInterceptor(),
+    JdeAuthInterceptor(ref),
     if (kDebugMode)
       LogInterceptor(
         requestBody: true,

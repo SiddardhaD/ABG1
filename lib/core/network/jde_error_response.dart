@@ -4,11 +4,18 @@ part 'jde_error_response.freezed.dart';
 part 'jde_error_response.g.dart';
 
 /// Error payload shape returned by JDE Orchestrator on a business/validation
-/// error (e.g. invalid Business Unit / Location).
+/// error. Shared across every app's JDE integration.
+///
+/// [message] is typed `dynamic` on purpose: different orchestrator
+/// operations shape it differently — sometimes a plain string (e.g. "Invalid
+/// Business Unit"), sometimes a nested object describing an app-stack
+/// exception (e.g. Order to be Shipped's form-transition errors). Always
+/// prefer [jdeSimpleMessage] for display; it's a flat string on every
+/// endpoint seen so far. [message] is kept around for logging/debugging.
 @freezed
 class JdeErrorResponse with _$JdeErrorResponse {
   const factory JdeErrorResponse({
-    String? message,
+    dynamic message,
     String? exception,
     String? timeStamp,
     String? userDefinedErrorText,

@@ -4,37 +4,49 @@ import 'package:multiple_result/multiple_result.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../../../core/exception/failure.dart';
+import '../../../../../../core/jde_auth/device_name.dart';
+import '../../../../../../core/jde_auth/jde_session_storage.dart';
 import '../../../../../../core/network/jde_error_response.dart';
-import '../api/item_availability_api_service.dart';
-import '../dto/item_availability_request.dart';
-import '../dto/item_availability_response.dart';
-import 'item_availability_repository.dart';
+import '../api/order_to_be_shipped_api_service.dart';
+import '../dto/order_to_be_shipped_request.dart';
+import '../dto/order_to_be_shipped_response.dart';
+import 'order_to_be_shipped_repository.dart';
 
-part 'item_availability_repository_impl.g.dart';
+part 'order_to_be_shipped_repository_impl.g.dart';
 
-/// Concrete [ItemAvailabilityRepository]. Calls the JDE orchestrator and
+/// Concrete [OrderToBeShippedRepository]. Calls the JDE orchestrator and
 /// normalizes both the JDE business-error shape and transport errors into a
 /// [Failure].
-class ItemAvailabilityRepositoryImpl implements ItemAvailabilityRepository {
-  ItemAvailabilityRepositoryImpl(this._api);
+class OrderToBeShippedRepositoryImpl implements OrderToBeShippedRepository {
+  OrderToBeShippedRepositoryImpl(this._api, this._sessionStorage);
 
-  final ItemAvailabilityApiService _api;
+  final OrderToBeShippedApiService _api;
+  final JdeSessionStorage _sessionStorage;
 
   @override
-  Future<Result<ItemAvailabilityResponse, Failure>> getItemAvailability({
-    required String businessUnit,
-    required String location,
+  Future<Result<OrderToBeShippedResponse, Failure>> confirmOrderToBeShipped({
+    required String orderNumber,
+    required String orderType,
+    required String orderCompany,
   }) async {
     try {
-      final raw = await _api.getItemAvailability(
-        ItemAvailabilityRequest(businessUnit: businessUnit, location: location).toJson(),
+      final deviceName = await resolveDeviceName();
+      final token = await _sessionStorage.readToken() ?? '';
+      final raw = await _api.confirmOrderToBeShipped(
+        OrderToBeShippedRequest(
+          deviceName: deviceName,
+          orderNumber: orderNumber,
+          orderType: orderType,
+          orderCompany: orderCompany,
+          token: token,
+        ).toJson(),
       );
       final json = _asJsonMap(raw);
 
       if (_looksLikeJdeError(json)) {
         return Error(_mapJdeError(JdeErrorResponse.fromJson(json), null));
       }
-      return Success(ItemAvailabilityResponse.fromJson(json));
+      return Success(OrderToBeShippedResponse.fromJson(json));
     } on DioException catch (e, st) {
       final data = e.response?.data;
       if (data is Map) {
@@ -80,6 +92,9 @@ class ItemAvailabilityRepositoryImpl implements ItemAvailabilityRepository {
 }
 
 @Riverpod(keepAlive: true)
-ItemAvailabilityRepository itemAvailabilityRepository(Ref ref) {
-  return ItemAvailabilityRepositoryImpl(ref.watch(itemAvailabilityApiServiceProvider));
+OrderToBeShippedRepository orderToBeShippedRepository(Ref ref) {
+  return OrderToBeShippedRepositoryImpl(
+    ref.watch(orderToBeShippedApiServiceProvider),
+    ref.watch(jdeSessionStorageProvider),
+  );
 }

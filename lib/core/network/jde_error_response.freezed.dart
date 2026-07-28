@@ -21,7 +21,7 @@ JdeErrorResponse _$JdeErrorResponseFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$JdeErrorResponse {
-  String? get message => throw _privateConstructorUsedError;
+  dynamic get message => throw _privateConstructorUsedError;
   String? get exception => throw _privateConstructorUsedError;
   String? get timeStamp => throw _privateConstructorUsedError;
   String? get userDefinedErrorText => throw _privateConstructorUsedError;
@@ -57,7 +57,7 @@ abstract class $JdeErrorResponseCopyWith<$Res> {
   ) = _$JdeErrorResponseCopyWithImpl<$Res, JdeErrorResponse>;
   @useResult
   $Res call({
-    String? message,
+    dynamic message,
     String? exception,
     String? timeStamp,
     String? userDefinedErrorText,
@@ -106,7 +106,7 @@ class _$JdeErrorResponseCopyWithImpl<$Res, $Val extends JdeErrorResponse>
             message: freezed == message
                 ? _value.message
                 : message // ignore: cast_nullable_to_non_nullable
-                      as String?,
+                      as dynamic,
             exception: freezed == exception
                 ? _value.exception
                 : exception // ignore: cast_nullable_to_non_nullable
@@ -167,7 +167,7 @@ abstract class _$$JdeErrorResponseImplCopyWith<$Res>
   @override
   @useResult
   $Res call({
-    String? message,
+    dynamic message,
     String? exception,
     String? timeStamp,
     String? userDefinedErrorText,
@@ -215,7 +215,7 @@ class __$$JdeErrorResponseImplCopyWithImpl<$Res>
         message: freezed == message
             ? _value.message
             : message // ignore: cast_nullable_to_non_nullable
-                  as String?,
+                  as dynamic,
         exception: freezed == exception
             ? _value.exception
             : exception // ignore: cast_nullable_to_non_nullable
@@ -288,7 +288,7 @@ class _$JdeErrorResponseImpl implements _JdeErrorResponse {
       _$$JdeErrorResponseImplFromJson(json);
 
   @override
-  final String? message;
+  final dynamic message;
   @override
   final String? exception;
   @override
@@ -327,7 +327,7 @@ class _$JdeErrorResponseImpl implements _JdeErrorResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$JdeErrorResponseImpl &&
-            (identical(other.message, message) || other.message == message) &&
+            const DeepCollectionEquality().equals(other.message, message) &&
             (identical(other.exception, exception) ||
                 other.exception == exception) &&
             (identical(other.timeStamp, timeStamp) ||
@@ -357,7 +357,7 @@ class _$JdeErrorResponseImpl implements _JdeErrorResponse {
   @override
   int get hashCode => Object.hash(
     runtimeType,
-    message,
+    const DeepCollectionEquality().hash(message),
     exception,
     timeStamp,
     userDefinedErrorText,
@@ -390,7 +390,7 @@ class _$JdeErrorResponseImpl implements _JdeErrorResponse {
 
 abstract class _JdeErrorResponse implements JdeErrorResponse {
   const factory _JdeErrorResponse({
-    final String? message,
+    final dynamic message,
     final String? exception,
     final String? timeStamp,
     final String? userDefinedErrorText,
@@ -409,7 +409,7 @@ abstract class _JdeErrorResponse implements JdeErrorResponse {
       _$JdeErrorResponseImpl.fromJson;
 
   @override
-  String? get message;
+  dynamic get message;
   @override
   String? get exception;
   @override

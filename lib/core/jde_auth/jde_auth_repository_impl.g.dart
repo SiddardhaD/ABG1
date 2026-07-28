@@ -1,32 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'jde_dio_provider.dart';
+part of 'jde_auth_repository_impl.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$jdeDioHash() => r'6d2949b12ce47264e3fbf05e5a555701c5c97ad3';
+String _$jdeAuthRepositoryHash() => r'5ddeddf6071526583263c3a7fca827af9204befa';
 
-/// [Dio] instance for JDE Orchestrator endpoints (login, logout, and every
-/// business call). Auth is a Bearer token obtained from `jde-login` and
-/// attached per-request by [JdeAuthInterceptor] — see that class for the
-/// `skipJdeAuthExtraKey` escape hatch the login call itself uses.
-///
-/// Copied from [jdeDio].
-@ProviderFor(jdeDio)
-final jdeDioProvider = Provider<Dio>.internal(
-  jdeDio,
-  name: r'jdeDioProvider',
+/// See also [jdeAuthRepository].
+@ProviderFor(jdeAuthRepository)
+final jdeAuthRepositoryProvider = Provider<JdeAuthRepository>.internal(
+  jdeAuthRepository,
+  name: r'jdeAuthRepositoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$jdeDioHash,
+      : _$jdeAuthRepositoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef JdeDioRef = ProviderRef<Dio>;
+typedef JdeAuthRepositoryRef = ProviderRef<JdeAuthRepository>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

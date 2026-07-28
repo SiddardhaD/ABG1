@@ -9,7 +9,7 @@ part of 'jde_error_response.dart';
 _$JdeErrorResponseImpl _$$JdeErrorResponseImplFromJson(
   Map<String, dynamic> json,
 ) => _$JdeErrorResponseImpl(
-  message: json['message'] as String?,
+  message: json['message'],
   exception: json['exception'] as String?,
   timeStamp: json['timeStamp'] as String?,
   userDefinedErrorText: json['userDefinedErrorText'] as String?,

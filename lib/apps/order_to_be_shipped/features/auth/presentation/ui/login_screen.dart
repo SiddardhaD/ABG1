@@ -9,10 +9,11 @@ import '../../../../../../core/common/widgets/primary_button.dart';
 import '../../../../../../core/jde_auth/jde_session_controller.dart';
 import '../../../../../../core/theme/app_spacing.dart';
 
-/// Login for the Location Availability Inquiry app — authenticates against
-/// the real JDE `jde-login` orchestrator call. Nothing pops back to this
-/// screen once signed in — only Logout returns here (see
-/// [JdeSessionController.logout]).
+/// Login for the Order to be Shipped app — authenticates against the real
+/// JDE `jde-login` orchestrator call. Nothing pops back to this screen once
+/// signed in — only Logout returns here (see [JdeSessionController.logout]).
+/// Session storage is namespaced per app flavor, so this session is fully
+/// separate from every other app.
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
@@ -88,12 +89,12 @@ class _LoginScreenState extends BaseConsumerState<LoginScreen> {
                           color: scheme.primary.withValues(alpha: 0.1),
                           shape: BoxShape.circle,
                         ),
-                        child: Icon(Icons.location_searching, size: 48, color: scheme.primary),
+                        child: Icon(Icons.local_shipping_outlined, size: 48, color: scheme.primary),
                       ),
                     ),
                     AppSpacing.gapXl,
                     Text(
-                      'Location Availability Inquiry',
+                      'Order to be Shipped',
                       style: textTheme.displayLarge,
                       textAlign: TextAlign.center,
                     ),
