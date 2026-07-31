@@ -24,6 +24,13 @@ mixin _$OrderToBeShippedState {
   String get errorMessage => throw _privateConstructorUsedError;
   List<OrderToBeShippedLine> get confirmedLines =>
       throw _privateConstructorUsedError;
+  bool get isConfirmingShipment => throw _privateConstructorUsedError;
+  bool get shipmentConfirmed =>
+      throw _privateConstructorUsedError; // True once any line's shipped quantity was edited away from what
+  // JDE_ORCH_56_OrderToBeShipped originally returned. Determines whether
+  // confirming calls the plain endpoint or the "UpdatedQua" one with the
+  // full (edited + unedited) line list.
+  bool get hasEditedQuantities => throw _privateConstructorUsedError;
 
   /// Create a copy of OrderToBeShippedState
   /// with the given fields replaced by the non-null parameter values.
@@ -46,6 +53,9 @@ abstract class $OrderToBeShippedStateCopyWith<$Res> {
     OrderToBeShippedStatus status,
     String errorMessage,
     List<OrderToBeShippedLine> confirmedLines,
+    bool isConfirmingShipment,
+    bool shipmentConfirmed,
+    bool hasEditedQuantities,
   });
 }
 
@@ -73,6 +83,9 @@ class _$OrderToBeShippedStateCopyWithImpl<
     Object? status = null,
     Object? errorMessage = null,
     Object? confirmedLines = null,
+    Object? isConfirmingShipment = null,
+    Object? shipmentConfirmed = null,
+    Object? hasEditedQuantities = null,
   }) {
     return _then(
       _value.copyWith(
@@ -100,6 +113,18 @@ class _$OrderToBeShippedStateCopyWithImpl<
                 ? _value.confirmedLines
                 : confirmedLines // ignore: cast_nullable_to_non_nullable
                       as List<OrderToBeShippedLine>,
+            isConfirmingShipment: null == isConfirmingShipment
+                ? _value.isConfirmingShipment
+                : isConfirmingShipment // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            shipmentConfirmed: null == shipmentConfirmed
+                ? _value.shipmentConfirmed
+                : shipmentConfirmed // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            hasEditedQuantities: null == hasEditedQuantities
+                ? _value.hasEditedQuantities
+                : hasEditedQuantities // ignore: cast_nullable_to_non_nullable
+                      as bool,
           )
           as $Val,
     );
@@ -122,6 +147,9 @@ abstract class _$$OrderToBeShippedStateImplCopyWith<$Res>
     OrderToBeShippedStatus status,
     String errorMessage,
     List<OrderToBeShippedLine> confirmedLines,
+    bool isConfirmingShipment,
+    bool shipmentConfirmed,
+    bool hasEditedQuantities,
   });
 }
 
@@ -146,6 +174,9 @@ class __$$OrderToBeShippedStateImplCopyWithImpl<$Res>
     Object? status = null,
     Object? errorMessage = null,
     Object? confirmedLines = null,
+    Object? isConfirmingShipment = null,
+    Object? shipmentConfirmed = null,
+    Object? hasEditedQuantities = null,
   }) {
     return _then(
       _$OrderToBeShippedStateImpl(
@@ -173,6 +204,18 @@ class __$$OrderToBeShippedStateImplCopyWithImpl<$Res>
             ? _value._confirmedLines
             : confirmedLines // ignore: cast_nullable_to_non_nullable
                   as List<OrderToBeShippedLine>,
+        isConfirmingShipment: null == isConfirmingShipment
+            ? _value.isConfirmingShipment
+            : isConfirmingShipment // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        shipmentConfirmed: null == shipmentConfirmed
+            ? _value.shipmentConfirmed
+            : shipmentConfirmed // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        hasEditedQuantities: null == hasEditedQuantities
+            ? _value.hasEditedQuantities
+            : hasEditedQuantities // ignore: cast_nullable_to_non_nullable
+                  as bool,
       ),
     );
   }
@@ -189,6 +232,9 @@ class _$OrderToBeShippedStateImpl extends _OrderToBeShippedState {
     this.errorMessage = '',
     final List<OrderToBeShippedLine> confirmedLines =
         const <OrderToBeShippedLine>[],
+    this.isConfirmingShipment = false,
+    this.shipmentConfirmed = false,
+    this.hasEditedQuantities = false,
   }) : _confirmedLines = confirmedLines,
        super._();
 
@@ -217,8 +263,22 @@ class _$OrderToBeShippedStateImpl extends _OrderToBeShippedState {
   }
 
   @override
+  @JsonKey()
+  final bool isConfirmingShipment;
+  @override
+  @JsonKey()
+  final bool shipmentConfirmed;
+  // True once any line's shipped quantity was edited away from what
+  // JDE_ORCH_56_OrderToBeShipped originally returned. Determines whether
+  // confirming calls the plain endpoint or the "UpdatedQua" one with the
+  // full (edited + unedited) line list.
+  @override
+  @JsonKey()
+  final bool hasEditedQuantities;
+
+  @override
   String toString() {
-    return 'OrderToBeShippedState(orderNumber: $orderNumber, orderType: $orderType, orderCompany: $orderCompany, status: $status, errorMessage: $errorMessage, confirmedLines: $confirmedLines)';
+    return 'OrderToBeShippedState(orderNumber: $orderNumber, orderType: $orderType, orderCompany: $orderCompany, status: $status, errorMessage: $errorMessage, confirmedLines: $confirmedLines, isConfirmingShipment: $isConfirmingShipment, shipmentConfirmed: $shipmentConfirmed, hasEditedQuantities: $hasEditedQuantities)';
   }
 
   @override
@@ -238,7 +298,13 @@ class _$OrderToBeShippedStateImpl extends _OrderToBeShippedState {
             const DeepCollectionEquality().equals(
               other._confirmedLines,
               _confirmedLines,
-            ));
+            ) &&
+            (identical(other.isConfirmingShipment, isConfirmingShipment) ||
+                other.isConfirmingShipment == isConfirmingShipment) &&
+            (identical(other.shipmentConfirmed, shipmentConfirmed) ||
+                other.shipmentConfirmed == shipmentConfirmed) &&
+            (identical(other.hasEditedQuantities, hasEditedQuantities) ||
+                other.hasEditedQuantities == hasEditedQuantities));
   }
 
   @override
@@ -250,6 +316,9 @@ class _$OrderToBeShippedStateImpl extends _OrderToBeShippedState {
     status,
     errorMessage,
     const DeepCollectionEquality().hash(_confirmedLines),
+    isConfirmingShipment,
+    shipmentConfirmed,
+    hasEditedQuantities,
   );
 
   /// Create a copy of OrderToBeShippedState
@@ -273,6 +342,9 @@ abstract class _OrderToBeShippedState extends OrderToBeShippedState {
     final OrderToBeShippedStatus status,
     final String errorMessage,
     final List<OrderToBeShippedLine> confirmedLines,
+    final bool isConfirmingShipment,
+    final bool shipmentConfirmed,
+    final bool hasEditedQuantities,
   }) = _$OrderToBeShippedStateImpl;
   const _OrderToBeShippedState._() : super._();
 
@@ -288,6 +360,15 @@ abstract class _OrderToBeShippedState extends OrderToBeShippedState {
   String get errorMessage;
   @override
   List<OrderToBeShippedLine> get confirmedLines;
+  @override
+  bool get isConfirmingShipment;
+  @override
+  bool get shipmentConfirmed; // True once any line's shipped quantity was edited away from what
+  // JDE_ORCH_56_OrderToBeShipped originally returned. Determines whether
+  // confirming calls the plain endpoint or the "UpdatedQua" one with the
+  // full (edited + unedited) line list.
+  @override
+  bool get hasEditedQuantities;
 
   /// Create a copy of OrderToBeShippedState
   /// with the given fields replaced by the non-null parameter values.

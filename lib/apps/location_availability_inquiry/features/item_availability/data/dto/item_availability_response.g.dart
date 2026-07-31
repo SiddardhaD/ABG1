@@ -22,7 +22,7 @@ _$ItemAvailabilityResponseImpl _$$ItemAvailabilityResponseImplFromJson(
 Map<String, dynamic> _$$ItemAvailabilityResponseImplToJson(
   _$ItemAvailabilityResponseImpl instance,
 ) => <String, dynamic>{
-  'FR_ItemAvailability_1': instance.result,
+  'FR_ItemAvailability_1': instance.result.toJson(),
   'jde__status': instance.jdeStatus,
   'jde__startTimestamp': instance.jdeStartTimestamp,
   'jde__endTimestamp': instance.jdeEndTimestamp,

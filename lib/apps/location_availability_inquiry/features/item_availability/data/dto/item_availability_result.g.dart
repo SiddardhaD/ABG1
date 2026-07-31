@@ -27,7 +27,7 @@ Map<String, dynamic> _$$ItemAvailabilityResultImplToJson(
   'formId': instance.formId,
   'gridId': instance.gridId,
   'title': instance.title,
-  'rowset': instance.rowset,
+  'rowset': instance.rowset.map((e) => e.toJson()).toList(),
   'records': instance.records,
   'moreRecords': instance.moreRecords,
 };

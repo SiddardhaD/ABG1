@@ -1,0 +1,12 @@
+targets:
+  $default:
+    builders:
+      json_serializable:
+        options:
+          # Without this, generated toJson() assigns nested @freezed/
+          # @JsonSerializable objects (and lists of them) directly instead of
+          # calling .toJson() on each — they then hit Dio's JSON encoder as
+          # raw Dart objects and serialize as their toString() instead of
+          # real JSON. Bit us on OrderShipmentConfirmationUpdatedQuantityRequest's
+          # nested `List<ShipmentDetailLine>`.
+          explicit_to_json: true

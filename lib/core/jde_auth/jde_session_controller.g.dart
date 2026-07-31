@@ -7,7 +7,7 @@ part of 'jde_session_controller.dart';
 // **************************************************************************
 
 String _$jdeSessionControllerHash() =>
-    r'faf9b6ed0acc7c80b9303f5e9e9e88a2a40eb11f';
+    r'47285cc13f91c9948643914b2ec38dfae0f632e5';
 
 /// Drives the real JDE login gate for a single app flavor. Restores the
 /// session (token presence) from [JdeSessionStorage] on build, and handles

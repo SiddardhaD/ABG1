@@ -28,7 +28,7 @@ Map<String, dynamic> _$$JdeLoginResponseImplToJson(
   'environment': instance.environment,
   'role': instance.role,
   'jasserver': instance.jasserver,
-  'userInfo': instance.userInfo,
+  'userInfo': instance.userInfo.toJson(),
   'userAuthorized': instance.userAuthorized,
   'adminAuthorized': instance.adminAuthorized,
   'passwordAboutToExpire': instance.passwordAboutToExpire,

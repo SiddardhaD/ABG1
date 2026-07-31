@@ -7,7 +7,7 @@ part of 'order_to_be_shipped_repository_impl.dart';
 // **************************************************************************
 
 String _$orderToBeShippedRepositoryHash() =>
-    r'6d41a7345dddbd69834a3872dd0c92a77edc1104';
+    r'05567f8fd257c503a0f3ab31250ac2f7df8ad08a';
 
 /// See also [orderToBeShippedRepository].
 @ProviderFor(orderToBeShippedRepository)

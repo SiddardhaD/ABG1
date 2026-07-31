@@ -52,7 +52,10 @@ class OrderToBeShippedViewModel extends _$OrderToBeShippedViewModel {
     return true;
   }
 
-  Future<void> confirm() async {
+  /// Step 1: fetches the order's shipment line details (read-only — doesn't
+  /// change anything server-side). Review these before calling
+  /// [confirmShipment].
+  Future<void> fetchDetails() async {
     if (!state.canSubmit) return;
     state = state.copyWith(status: OrderToBeShippedStatus.loading, errorMessage: '');
 
@@ -67,11 +70,61 @@ class OrderToBeShippedViewModel extends _$OrderToBeShippedViewModel {
         state = state.copyWith(
           status: OrderToBeShippedStatus.success,
           confirmedLines: response.lines,
+          shipmentConfirmed: false,
+          hasEditedQuantities: false,
         );
       },
       (failure) {
         state = state.copyWith(
           status: OrderToBeShippedStatus.error,
+          errorMessage: failure.messageOr('Could not fetch order details. Please try again.'),
+        );
+      },
+    );
+  }
+
+  /// Edits a single line's shipped quantity. The caller (the line's UI
+  /// tile) is responsible for bounds-checking against that line's
+  /// `QuantityOrdered` before calling this — this just applies the change
+  /// and flags the order as having edited quantities, which routes
+  /// [confirmShipment] to the "UpdatedQua" endpoint with every line.
+  void updateLineQuantity(num lineNumber, num newQuantity) {
+    final updatedLines = [
+      for (final line in state.confirmedLines)
+        if (line.lineNumber == lineNumber) line.copyWith(quantityShipped: newQuantity) else line,
+    ];
+    state = state.copyWith(confirmedLines: updatedLines, hasEditedQuantities: true);
+  }
+
+  /// Step 2: the actual mutating confirmation, only reachable after
+  /// [fetchDetails] succeeded (see [OrderToBeShippedState.canConfirmShipment]).
+  /// Routes to `JDE_ORCH_56_OrderShipmentConfirmationUpdatedQua` (with every
+  /// line) if any quantity was edited, otherwise the plain confirmation
+  /// call — per spec, the detailed endpoint is only needed when something
+  /// actually changed.
+  Future<void> confirmShipment() async {
+    if (!state.canConfirmShipment) return;
+    state = state.copyWith(isConfirmingShipment: true, errorMessage: '');
+
+    final repository = ref.read(orderToBeShippedRepositoryProvider);
+    final result = state.hasEditedQuantities
+        ? await repository.confirmShipmentWithUpdatedQuantities(
+            orderNumber: state.orderNumber.trim(),
+            orderType: state.orderType.trim(),
+            orderCompany: state.orderCompany.trim(),
+            lines: state.confirmedLines,
+          )
+        : await repository.confirmShipment(
+            orderNumber: state.orderNumber.trim(),
+            orderType: state.orderType.trim(),
+            orderCompany: state.orderCompany.trim(),
+          );
+
+    result.when(
+      (_) => state = state.copyWith(isConfirmingShipment: false, shipmentConfirmed: true),
+      (failure) {
+        state = state.copyWith(
+          isConfirmingShipment: false,
           errorMessage: failure.messageOr('Confirmation failed. Please try again.'),
         );
       },

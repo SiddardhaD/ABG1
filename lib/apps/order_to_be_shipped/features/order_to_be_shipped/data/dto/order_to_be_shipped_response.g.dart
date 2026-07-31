@@ -24,7 +24,7 @@ _$OrderToBeShippedResponseImpl _$$OrderToBeShippedResponseImplFromJson(
 Map<String, dynamic> _$$OrderToBeShippedResponseImplToJson(
   _$OrderToBeShippedResponseImpl instance,
 ) => <String, dynamic>{
-  'OrderTobeShippedDetails': instance.lines,
+  'OrderTobeShippedDetails': instance.lines.map((e) => e.toJson()).toList(),
   'jde__status': instance.jdeStatus,
   'jde__startTimestamp': instance.jdeStartTimestamp,
   'jde__endTimestamp': instance.jdeEndTimestamp,

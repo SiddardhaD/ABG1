@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../jde_auth/jde_session_controller.dart';
 import '../../jde_auth/jde_session_storage.dart';
 
 /// Set this in a request's `extra` to skip attaching the JDE Bearer token
@@ -9,9 +10,16 @@ import '../../jde_auth/jde_session_storage.dart';
 ///   dio.post(path, options: Options(extra: {skipJdeAuthExtraKey: true}));
 const String skipJdeAuthExtraKey = 'skip_jde_auth';
 
+/// JDE's exception class for "no longer authenticated" — covers both wrong
+/// login credentials and an expired/invalid Bearer token. Seen verbatim in
+/// both cases: `"Authorization Failure: Incorrect User ID or Password."`
+/// (bad login) and `"Token Invalid: Please Request a new Token"` (expired
+/// session on a business call).
+const String _loginExceptionClass = 'E1LoginException';
+
 /// Attaches `Authorization: Bearer <token>` to outgoing JDE orchestrator
-/// requests. Token is read fresh from [JdeSessionStorage] each request so it
-/// always reflects the latest session (set right after `jde-login`).
+/// requests, and force-signs-out the session when a business call reports
+/// the token is no longer valid.
 class JdeAuthInterceptor extends Interceptor {
   JdeAuthInterceptor(this._ref);
 
@@ -30,5 +38,26 @@ class JdeAuthInterceptor extends Interceptor {
       }
     }
     handler.next(options);
+  }
+
+  @override
+  Future<void> onError(
+    DioException err,
+    ErrorInterceptorHandler handler,
+  ) async {
+    final skipAuth = err.requestOptions.extra[skipJdeAuthExtraKey] == true;
+    // Don't force-sign-out on the login call itself — a 403/E1LoginException
+    // there just means "wrong username/password", not "an active session
+    // expired".
+    if (!skipAuth) {
+      final statusCode = err.response?.statusCode;
+      final data = err.response?.data;
+      final sessionExpired =
+          statusCode == 403 || (data is Map && data['exception'] == _loginExceptionClass);
+      if (sessionExpired) {
+        await _ref.read(jdeSessionControllerProvider.notifier).forceSignOut();
+      }
+    }
+    handler.next(err);
   }
 }

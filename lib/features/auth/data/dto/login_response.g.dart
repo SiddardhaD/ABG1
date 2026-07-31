@@ -17,5 +17,5 @@ Map<String, dynamic> _$$LoginResponseImplToJson(_$LoginResponseImpl instance) =>
     <String, dynamic>{
       'access_token': instance.accessToken,
       'refresh_token': instance.refreshToken,
-      'user': instance.user,
+      'user': instance.user.toJson(),
     };

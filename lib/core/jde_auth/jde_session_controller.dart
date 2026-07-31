@@ -87,4 +87,17 @@ class JdeSessionController extends _$JdeSessionController {
       },
     );
   }
+
+  /// Called by [JdeAuthInterceptor] when a business call comes back with
+  /// `E1LoginException` (JDE's "your token is no longer valid" signal) —
+  /// no API call, just drop the stale local session so the router bounces
+  /// straight to login instead of leaving the user stuck retrying requests
+  /// that will keep failing the same way.
+  Future<void> forceSignOut() async {
+    await ref.read(jdeSessionStorageProvider).clear();
+    state = const JdeSessionState(
+      status: JdeAuthStatus.unauthenticated,
+      errorMessage: 'Your session has expired. Please sign in again.',
+    );
+  }
 }
