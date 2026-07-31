@@ -17,8 +17,8 @@ import '../view_model/order_to_be_shipped_view_model.dart';
 /// Order to be Shipped screen.
 ///
 /// Shipment labels carry one barcode encoding Order Company, Order Type and
-/// Order Number together — the "Scan Order Barcode" button reads it once
-/// and fills all three fields. Each field also stays keyboard-wedge and
+/// Pick Number together — the "Scan Order Barcode" button reads it once and
+/// fills all three fields. Each field also stays keyboard-wedge and
 /// manual-entry friendly on its own, in case only part of the label is
 /// scannable or a value needs correcting.
 class OrderToBeShippedScreen extends ConsumerStatefulWidget {
@@ -31,13 +31,13 @@ class OrderToBeShippedScreen extends ConsumerStatefulWidget {
 class _OrderToBeShippedScreenState extends BaseConsumerState<OrderToBeShippedScreen> {
   final _orderCompanyController = TextEditingController();
   final _orderTypeController = TextEditingController();
-  final _orderNumberController = TextEditingController();
+  final _pickNumberController = TextEditingController();
 
   @override
   void dispose() {
     _orderCompanyController.dispose();
     _orderTypeController.dispose();
-    _orderNumberController.dispose();
+    _pickNumberController.dispose();
     super.dispose();
   }
 
@@ -48,8 +48,8 @@ class _OrderToBeShippedScreenState extends BaseConsumerState<OrderToBeShippedScr
     if (_orderTypeController.text != state.orderType) {
       _orderTypeController.text = state.orderType;
     }
-    if (_orderNumberController.text != state.orderNumber) {
-      _orderNumberController.text = state.orderNumber;
+    if (_pickNumberController.text != state.pickNumber) {
+      _pickNumberController.text = state.pickNumber;
     }
   }
 
@@ -218,11 +218,11 @@ class _OrderToBeShippedScreenState extends BaseConsumerState<OrderToBeShippedScr
                         ),
                         AppSpacing.gapLg,
                         AppTextField(
-                          label: 'Order Number',
-                          hint: 'e.g. 2600008',
-                          controller: _orderNumberController,
+                          label: 'Pick Number',
+                          hint: 'e.g. 1719748',
+                          controller: _pickNumberController,
                           textInputAction: TextInputAction.done,
-                          onChanged: vm.updateOrderNumber,
+                          onChanged: vm.updatePickNumber,
                           onFieldSubmitted: (_) => vm.fetchDetails(),
                         ),
                         AppSpacing.gapXl,
@@ -312,6 +312,8 @@ class _ShipmentDetailsCard extends StatelessWidget {
                 spacing: AppSpacing.sm,
                 runSpacing: AppSpacing.sm,
                 children: [
+                  if (header.pickNumber != null)
+                    _StatChip(icon: Icons.qr_code_2, label: 'Pick #${header.pickNumber}'),
                   _StatChip(icon: Icons.person_outline, label: _dash(header.shipToDescription)),
                   _StatChip(
                     icon: Icons.sync_alt,
@@ -339,6 +341,7 @@ class _ShipmentDetailsCard extends StatelessWidget {
                 icon: Icons.check_circle_outline,
                 isLoading: isConfirming,
                 onPressed: canConfirm ? onConfirmShipment : null,
+                isEnabled: lines.isNotEmpty,
               ),
           ],
         ),
@@ -507,6 +510,11 @@ class _ShipmentDetailsGrid extends StatelessWidget {
                     DataCell(Text('${indexed.value.quantityOrdered ?? 0} ${_dash(indexed.value.uom)}')),
                     DataCell(
                       _EditableQuantityCell(
+                        // Without a key tied to the line's identity, Flutter
+                        // reconciles these by list position on rebuild —
+                        // editing one row and then another could bind the
+                        // wrong row's committed value to the wrong line.
+                        key: ValueKey(indexed.value.lineNumber),
                         line: indexed.value,
                         editable: editable,
                         onChanged: (newQuantity) =>
@@ -566,6 +574,7 @@ class _LineStatusIndicator extends StatelessWidget {
 /// go negative) before reporting a change up via [onChanged].
 class _EditableQuantityCell extends StatefulWidget {
   const _EditableQuantityCell({
+    super.key,
     required this.line,
     required this.editable,
     required this.onChanged,
@@ -581,6 +590,7 @@ class _EditableQuantityCell extends StatefulWidget {
 
 class _EditableQuantityCellState extends State<_EditableQuantityCell> {
   late final TextEditingController _controller;
+  final _focusNode = FocusNode();
   String? _error;
 
   @override
@@ -590,8 +600,21 @@ class _EditableQuantityCellState extends State<_EditableQuantityCell> {
   }
 
   @override
+  void didUpdateWidget(covariant _EditableQuantityCell oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Keep the field in sync with the underlying line if it changes from
+    // outside this widget (e.g. a reset) — but never clobber text the user
+    // is actively typing.
+    final currentValue = '${widget.line.quantityShipped ?? 0}';
+    if (!_focusNode.hasFocus && _controller.text != currentValue) {
+      _controller.text = currentValue;
+    }
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -619,6 +642,7 @@ class _EditableQuantityCellState extends State<_EditableQuantityCell> {
       width: 76,
       child: TextField(
         controller: _controller,
+        focusNode: _focusNode,
         enabled: widget.editable,
         keyboardType: const TextInputType.numberWithOptions(decimal: false),
         textAlign: TextAlign.center,

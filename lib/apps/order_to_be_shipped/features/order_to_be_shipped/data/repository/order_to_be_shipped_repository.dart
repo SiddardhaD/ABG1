@@ -6,18 +6,21 @@ import '../dto/order_to_be_shipped_response.dart';
 
 abstract class OrderToBeShippedRepository {
   /// Fetches the order's shipment line details (`JDE_ORCH_56_OrderToBeShipped`)
-  /// — read-only, doesn't change the order's status.
+  /// — read-only, doesn't change the order's status. Looked up by
+  /// [pickNumber] (not the order number — the response still contains that).
   Future<Result<OrderToBeShippedResponse, Failure>> confirmOrderToBeShipped({
-    required String orderNumber,
+    required String pickNumber,
     required String orderType,
     required String orderCompany,
   });
 
   /// Confirms the shipment with no quantity changes
   /// (`JDE_ORCH_56_OrderShipmentConfirmation`). Success is judged by HTTP
-  /// 200, per spec.
+  /// 200, per spec. Looked up by [pickSlipNumber] — same underlying value
+  /// as [confirmOrderToBeShipped]'s `pickNumber`, JDE just names the field
+  /// differently on this endpoint.
   Future<Result<void, Failure>> confirmShipment({
-    required String orderNumber,
+    required String pickSlipNumber,
     required String orderType,
     required String orderCompany,
   });

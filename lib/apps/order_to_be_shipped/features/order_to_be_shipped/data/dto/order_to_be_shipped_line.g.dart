@@ -35,6 +35,7 @@ _$OrderToBeShippedLineImpl _$$OrderToBeShippedLineImplFromJson(
   containerId: json['ContainerI.D.'] as String?,
   secUm: json['SecUM'] as String?,
   carrierNumber: json['CarrierNumber'] as num?,
+  pickNumber: json['PickNumber'] as num?,
 );
 
 Map<String, dynamic> _$$OrderToBeShippedLineImplToJson(
@@ -66,4 +67,5 @@ Map<String, dynamic> _$$OrderToBeShippedLineImplToJson(
   'ContainerI.D.': instance.containerId,
   'SecUM': instance.secUm,
   'CarrierNumber': instance.carrierNumber,
+  'PickNumber': instance.pickNumber,
 };

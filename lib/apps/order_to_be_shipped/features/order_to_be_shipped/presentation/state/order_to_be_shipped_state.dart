@@ -10,7 +10,12 @@ enum OrderToBeShippedStatus { idle, loading, success, error }
 @freezed
 class OrderToBeShippedState with _$OrderToBeShippedState {
   const factory OrderToBeShippedState({
-    @Default('') String orderNumber,
+    // What the user enters/scans to look up an order — JDE's "pick number"
+    // (JDE_ORCH_56_OrderToBeShipped's PickNumber /
+    // JDE_ORCH_56_OrderShipmentConfirmation's Pick_Slip_Number), not the
+    // order number. The actual order number comes back in confirmedLines
+    // once fetched, and is what confirmShipmentWithUpdatedQuantities uses.
+    @Default('') String pickNumber,
     @Default('') String orderType,
     @Default('') String orderCompany,
     @Default(OrderToBeShippedStatus.idle) OrderToBeShippedStatus status,
@@ -35,7 +40,7 @@ class OrderToBeShippedState with _$OrderToBeShippedState {
       status == OrderToBeShippedStatus.success && !isConfirmingShipment && !shipmentConfirmed;
 
   bool get canSubmit =>
-      orderNumber.trim().isNotEmpty &&
+      pickNumber.trim().isNotEmpty &&
       orderType.trim().isNotEmpty &&
       orderCompany.trim().isNotEmpty &&
       !isLoading;

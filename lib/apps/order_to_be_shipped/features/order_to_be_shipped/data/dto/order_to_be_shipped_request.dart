@@ -11,7 +11,7 @@ part 'order_to_be_shipped_request.g.dart';
 class OrderToBeShippedRequest with _$OrderToBeShippedRequest {
   const factory OrderToBeShippedRequest({
     required String deviceName,
-    @JsonKey(name: 'Order_Number') required String orderNumber,
+    @JsonKey(name: 'PickNumber') required String pickNumber,
     @JsonKey(name: 'Order_Type') required String orderType,
     @JsonKey(name: 'Order_Company') required String orderCompany,
     required String token,

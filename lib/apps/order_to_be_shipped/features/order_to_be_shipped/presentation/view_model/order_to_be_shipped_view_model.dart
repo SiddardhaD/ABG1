@@ -12,8 +12,8 @@ class OrderToBeShippedViewModel extends _$OrderToBeShippedViewModel {
   @override
   OrderToBeShippedState build() => const OrderToBeShippedState();
 
-  void updateOrderNumber(String value) {
-    state = state.copyWith(orderNumber: value, errorMessage: '');
+  void updatePickNumber(String value) {
+    state = state.copyWith(pickNumber: value, errorMessage: '');
   }
 
   void updateOrderType(String value) {
@@ -25,13 +25,13 @@ class OrderToBeShippedViewModel extends _$OrderToBeShippedViewModel {
   }
 
   /// Parses the single composite barcode printed on shipment labels into
-  /// the three order fields, then updates state.
+  /// the three lookup fields, then updates state.
   ///
   /// ASSUMPTION (unconfirmed — adjust here if the real format differs):
   /// hyphen-delimited segments in the order
-  /// `<Order Company>-<Order Type>-<Order Number>`, based on the sample
+  /// `<Order Company>-<Order Type>-<Pick Number>`, based on the sample
   /// barcode "00119-S0-2600008" (5-digit numeric company, 2-char type,
-  /// numeric order — matches standard JDE conventions).
+  /// numeric pick number — matches standard JDE conventions).
   bool applyScannedBarcode(String raw) {
     final segments = raw.trim().split('-');
     if (segments.length != 3 || segments.any((s) => s.trim().isEmpty)) {
@@ -45,7 +45,7 @@ class OrderToBeShippedViewModel extends _$OrderToBeShippedViewModel {
     state = state.copyWith(
       orderCompany: segments[0].trim(),
       orderType: segments[1].trim(),
-      orderNumber: segments[2].trim(),
+      pickNumber: segments[2].trim(),
       status: OrderToBeShippedStatus.idle,
       errorMessage: '',
     );
@@ -60,7 +60,7 @@ class OrderToBeShippedViewModel extends _$OrderToBeShippedViewModel {
     state = state.copyWith(status: OrderToBeShippedStatus.loading, errorMessage: '');
 
     final result = await ref.read(orderToBeShippedRepositoryProvider).confirmOrderToBeShipped(
-          orderNumber: state.orderNumber.trim(),
+          pickNumber: state.pickNumber.trim(),
           orderType: state.orderType.trim(),
           orderCompany: state.orderCompany.trim(),
         );
@@ -109,13 +109,18 @@ class OrderToBeShippedViewModel extends _$OrderToBeShippedViewModel {
     final repository = ref.read(orderToBeShippedRepositoryProvider);
     final result = state.hasEditedQuantities
         ? await repository.confirmShipmentWithUpdatedQuantities(
-            orderNumber: state.orderNumber.trim(),
+            // Unlike the plain confirmation call, this endpoint's spec
+            // wasn't changed to pick number — it still wants the real order
+            // number, which only exists in the fetched line data now (the
+            // user enters a pick number, not an order number).
+            orderNumber:
+                '${state.confirmedLines.isEmpty ? '' : state.confirmedLines.first.orderNumber ?? ''}',
             orderType: state.orderType.trim(),
             orderCompany: state.orderCompany.trim(),
             lines: state.confirmedLines,
           )
         : await repository.confirmShipment(
-            orderNumber: state.orderNumber.trim(),
+            pickSlipNumber: state.pickNumber.trim(),
             orderType: state.orderType.trim(),
             orderCompany: state.orderCompany.trim(),
           );

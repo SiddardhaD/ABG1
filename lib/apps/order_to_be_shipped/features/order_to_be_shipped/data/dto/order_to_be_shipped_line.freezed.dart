@@ -73,6 +73,8 @@ mixin _$OrderToBeShippedLine {
   String? get secUm => throw _privateConstructorUsedError;
   @JsonKey(name: 'CarrierNumber')
   num? get carrierNumber => throw _privateConstructorUsedError;
+  @JsonKey(name: 'PickNumber')
+  num? get pickNumber => throw _privateConstructorUsedError;
 
   /// Serializes this OrderToBeShippedLine to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -118,6 +120,7 @@ abstract class $OrderToBeShippedLineCopyWith<$Res> {
     @JsonKey(name: 'ContainerI.D.') String? containerId,
     @JsonKey(name: 'SecUM') String? secUm,
     @JsonKey(name: 'CarrierNumber') num? carrierNumber,
+    @JsonKey(name: 'PickNumber') num? pickNumber,
   });
 }
 
@@ -165,6 +168,7 @@ class _$OrderToBeShippedLineCopyWithImpl<
     Object? containerId = freezed,
     Object? secUm = freezed,
     Object? carrierNumber = freezed,
+    Object? pickNumber = freezed,
   }) {
     return _then(
       _value.copyWith(
@@ -272,6 +276,10 @@ class _$OrderToBeShippedLineCopyWithImpl<
                 ? _value.carrierNumber
                 : carrierNumber // ignore: cast_nullable_to_non_nullable
                       as num?,
+            pickNumber: freezed == pickNumber
+                ? _value.pickNumber
+                : pickNumber // ignore: cast_nullable_to_non_nullable
+                      as num?,
           )
           as $Val,
     );
@@ -314,6 +322,7 @@ abstract class _$$OrderToBeShippedLineImplCopyWith<$Res>
     @JsonKey(name: 'ContainerI.D.') String? containerId,
     @JsonKey(name: 'SecUM') String? secUm,
     @JsonKey(name: 'CarrierNumber') num? carrierNumber,
+    @JsonKey(name: 'PickNumber') num? pickNumber,
   });
 }
 
@@ -357,6 +366,7 @@ class __$$OrderToBeShippedLineImplCopyWithImpl<$Res>
     Object? containerId = freezed,
     Object? secUm = freezed,
     Object? carrierNumber = freezed,
+    Object? pickNumber = freezed,
   }) {
     return _then(
       _$OrderToBeShippedLineImpl(
@@ -464,6 +474,10 @@ class __$$OrderToBeShippedLineImplCopyWithImpl<$Res>
             ? _value.carrierNumber
             : carrierNumber // ignore: cast_nullable_to_non_nullable
                   as num?,
+        pickNumber: freezed == pickNumber
+            ? _value.pickNumber
+            : pickNumber // ignore: cast_nullable_to_non_nullable
+                  as num?,
       ),
     );
   }
@@ -499,6 +513,7 @@ class _$OrderToBeShippedLineImpl implements _OrderToBeShippedLine {
     @JsonKey(name: 'ContainerI.D.') this.containerId,
     @JsonKey(name: 'SecUM') this.secUm,
     @JsonKey(name: 'CarrierNumber') this.carrierNumber,
+    @JsonKey(name: 'PickNumber') this.pickNumber,
   });
 
   factory _$OrderToBeShippedLineImpl.fromJson(Map<String, dynamic> json) =>
@@ -582,10 +597,13 @@ class _$OrderToBeShippedLineImpl implements _OrderToBeShippedLine {
   @override
   @JsonKey(name: 'CarrierNumber')
   final num? carrierNumber;
+  @override
+  @JsonKey(name: 'PickNumber')
+  final num? pickNumber;
 
   @override
   String toString() {
-    return 'OrderToBeShippedLine(orderCompany: $orderCompany, orderNumber: $orderNumber, orderType: $orderType, lineNumber: $lineNumber, businessUnit: $businessUnit, addressNumber: $addressNumber, addressNumberDescription: $addressNumberDescription, shipTo: $shipTo, shipToDescription: $shipToDescription, itemNumber: $itemNumber, itemNumberDescription: $itemNumberDescription, location: $location, lotSerialNumber: $lotSerialNumber, lineType: $lineType, nextStat: $nextStat, nextStatDescription: $nextStatDescription, lastStat: $lastStat, lastStatDescription: $lastStatDescription, uom: $uom, quantityOrdered: $quantityOrdered, quantityShipped: $quantityShipped, quantityBackordered: $quantityBackordered, quantityCanceled: $quantityCanceled, containerId: $containerId, secUm: $secUm, carrierNumber: $carrierNumber)';
+    return 'OrderToBeShippedLine(orderCompany: $orderCompany, orderNumber: $orderNumber, orderType: $orderType, lineNumber: $lineNumber, businessUnit: $businessUnit, addressNumber: $addressNumber, addressNumberDescription: $addressNumberDescription, shipTo: $shipTo, shipToDescription: $shipToDescription, itemNumber: $itemNumber, itemNumberDescription: $itemNumberDescription, location: $location, lotSerialNumber: $lotSerialNumber, lineType: $lineType, nextStat: $nextStat, nextStatDescription: $nextStatDescription, lastStat: $lastStat, lastStatDescription: $lastStatDescription, uom: $uom, quantityOrdered: $quantityOrdered, quantityShipped: $quantityShipped, quantityBackordered: $quantityBackordered, quantityCanceled: $quantityCanceled, containerId: $containerId, secUm: $secUm, carrierNumber: $carrierNumber, pickNumber: $pickNumber)';
   }
 
   @override
@@ -644,7 +662,9 @@ class _$OrderToBeShippedLineImpl implements _OrderToBeShippedLine {
                 other.containerId == containerId) &&
             (identical(other.secUm, secUm) || other.secUm == secUm) &&
             (identical(other.carrierNumber, carrierNumber) ||
-                other.carrierNumber == carrierNumber));
+                other.carrierNumber == carrierNumber) &&
+            (identical(other.pickNumber, pickNumber) ||
+                other.pickNumber == pickNumber));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -677,6 +697,7 @@ class _$OrderToBeShippedLineImpl implements _OrderToBeShippedLine {
     containerId,
     secUm,
     carrierNumber,
+    pickNumber,
   ]);
 
   /// Create a copy of OrderToBeShippedLine
@@ -725,6 +746,7 @@ abstract class _OrderToBeShippedLine implements OrderToBeShippedLine {
     @JsonKey(name: 'ContainerI.D.') final String? containerId,
     @JsonKey(name: 'SecUM') final String? secUm,
     @JsonKey(name: 'CarrierNumber') final num? carrierNumber,
+    @JsonKey(name: 'PickNumber') final num? pickNumber,
   }) = _$OrderToBeShippedLineImpl;
 
   factory _OrderToBeShippedLine.fromJson(Map<String, dynamic> json) =
@@ -808,6 +830,9 @@ abstract class _OrderToBeShippedLine implements OrderToBeShippedLine {
   @override
   @JsonKey(name: 'CarrierNumber')
   num? get carrierNumber;
+  @override
+  @JsonKey(name: 'PickNumber')
+  num? get pickNumber;
 
   /// Create a copy of OrderToBeShippedLine
   /// with the given fields replaced by the non-null parameter values.

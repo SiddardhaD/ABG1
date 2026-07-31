@@ -24,8 +24,8 @@ OrderToBeShippedRequest _$OrderToBeShippedRequestFromJson(
 /// @nodoc
 mixin _$OrderToBeShippedRequest {
   String get deviceName => throw _privateConstructorUsedError;
-  @JsonKey(name: 'Order_Number')
-  String get orderNumber => throw _privateConstructorUsedError;
+  @JsonKey(name: 'PickNumber')
+  String get pickNumber => throw _privateConstructorUsedError;
   @JsonKey(name: 'Order_Type')
   String get orderType => throw _privateConstructorUsedError;
   @JsonKey(name: 'Order_Company')
@@ -51,7 +51,7 @@ abstract class $OrderToBeShippedRequestCopyWith<$Res> {
   @useResult
   $Res call({
     String deviceName,
-    @JsonKey(name: 'Order_Number') String orderNumber,
+    @JsonKey(name: 'PickNumber') String pickNumber,
     @JsonKey(name: 'Order_Type') String orderType,
     @JsonKey(name: 'Order_Company') String orderCompany,
     String token,
@@ -77,7 +77,7 @@ class _$OrderToBeShippedRequestCopyWithImpl<
   @override
   $Res call({
     Object? deviceName = null,
-    Object? orderNumber = null,
+    Object? pickNumber = null,
     Object? orderType = null,
     Object? orderCompany = null,
     Object? token = null,
@@ -88,9 +88,9 @@ class _$OrderToBeShippedRequestCopyWithImpl<
                 ? _value.deviceName
                 : deviceName // ignore: cast_nullable_to_non_nullable
                       as String,
-            orderNumber: null == orderNumber
-                ? _value.orderNumber
-                : orderNumber // ignore: cast_nullable_to_non_nullable
+            pickNumber: null == pickNumber
+                ? _value.pickNumber
+                : pickNumber // ignore: cast_nullable_to_non_nullable
                       as String,
             orderType: null == orderType
                 ? _value.orderType
@@ -121,7 +121,7 @@ abstract class _$$OrderToBeShippedRequestImplCopyWith<$Res>
   @useResult
   $Res call({
     String deviceName,
-    @JsonKey(name: 'Order_Number') String orderNumber,
+    @JsonKey(name: 'PickNumber') String pickNumber,
     @JsonKey(name: 'Order_Type') String orderType,
     @JsonKey(name: 'Order_Company') String orderCompany,
     String token,
@@ -147,7 +147,7 @@ class __$$OrderToBeShippedRequestImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? deviceName = null,
-    Object? orderNumber = null,
+    Object? pickNumber = null,
     Object? orderType = null,
     Object? orderCompany = null,
     Object? token = null,
@@ -158,9 +158,9 @@ class __$$OrderToBeShippedRequestImplCopyWithImpl<$Res>
             ? _value.deviceName
             : deviceName // ignore: cast_nullable_to_non_nullable
                   as String,
-        orderNumber: null == orderNumber
-            ? _value.orderNumber
-            : orderNumber // ignore: cast_nullable_to_non_nullable
+        pickNumber: null == pickNumber
+            ? _value.pickNumber
+            : pickNumber // ignore: cast_nullable_to_non_nullable
                   as String,
         orderType: null == orderType
             ? _value.orderType
@@ -184,7 +184,7 @@ class __$$OrderToBeShippedRequestImplCopyWithImpl<$Res>
 class _$OrderToBeShippedRequestImpl implements _OrderToBeShippedRequest {
   const _$OrderToBeShippedRequestImpl({
     required this.deviceName,
-    @JsonKey(name: 'Order_Number') required this.orderNumber,
+    @JsonKey(name: 'PickNumber') required this.pickNumber,
     @JsonKey(name: 'Order_Type') required this.orderType,
     @JsonKey(name: 'Order_Company') required this.orderCompany,
     required this.token,
@@ -196,8 +196,8 @@ class _$OrderToBeShippedRequestImpl implements _OrderToBeShippedRequest {
   @override
   final String deviceName;
   @override
-  @JsonKey(name: 'Order_Number')
-  final String orderNumber;
+  @JsonKey(name: 'PickNumber')
+  final String pickNumber;
   @override
   @JsonKey(name: 'Order_Type')
   final String orderType;
@@ -209,7 +209,7 @@ class _$OrderToBeShippedRequestImpl implements _OrderToBeShippedRequest {
 
   @override
   String toString() {
-    return 'OrderToBeShippedRequest(deviceName: $deviceName, orderNumber: $orderNumber, orderType: $orderType, orderCompany: $orderCompany, token: $token)';
+    return 'OrderToBeShippedRequest(deviceName: $deviceName, pickNumber: $pickNumber, orderType: $orderType, orderCompany: $orderCompany, token: $token)';
   }
 
   @override
@@ -219,8 +219,8 @@ class _$OrderToBeShippedRequestImpl implements _OrderToBeShippedRequest {
             other is _$OrderToBeShippedRequestImpl &&
             (identical(other.deviceName, deviceName) ||
                 other.deviceName == deviceName) &&
-            (identical(other.orderNumber, orderNumber) ||
-                other.orderNumber == orderNumber) &&
+            (identical(other.pickNumber, pickNumber) ||
+                other.pickNumber == pickNumber) &&
             (identical(other.orderType, orderType) ||
                 other.orderType == orderType) &&
             (identical(other.orderCompany, orderCompany) ||
@@ -233,7 +233,7 @@ class _$OrderToBeShippedRequestImpl implements _OrderToBeShippedRequest {
   int get hashCode => Object.hash(
     runtimeType,
     deviceName,
-    orderNumber,
+    pickNumber,
     orderType,
     orderCompany,
     token,
@@ -259,7 +259,7 @@ class _$OrderToBeShippedRequestImpl implements _OrderToBeShippedRequest {
 abstract class _OrderToBeShippedRequest implements OrderToBeShippedRequest {
   const factory _OrderToBeShippedRequest({
     required final String deviceName,
-    @JsonKey(name: 'Order_Number') required final String orderNumber,
+    @JsonKey(name: 'PickNumber') required final String pickNumber,
     @JsonKey(name: 'Order_Type') required final String orderType,
     @JsonKey(name: 'Order_Company') required final String orderCompany,
     required final String token,
@@ -271,8 +271,8 @@ abstract class _OrderToBeShippedRequest implements OrderToBeShippedRequest {
   @override
   String get deviceName;
   @override
-  @JsonKey(name: 'Order_Number')
-  String get orderNumber;
+  @JsonKey(name: 'PickNumber')
+  String get pickNumber;
   @override
   @JsonKey(name: 'Order_Type')
   String get orderType;

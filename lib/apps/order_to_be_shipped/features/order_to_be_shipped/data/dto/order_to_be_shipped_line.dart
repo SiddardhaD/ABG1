@@ -35,6 +35,7 @@ class OrderToBeShippedLine with _$OrderToBeShippedLine {
     @JsonKey(name: 'ContainerI.D.') String? containerId,
     @JsonKey(name: 'SecUM') String? secUm,
     @JsonKey(name: 'CarrierNumber') num? carrierNumber,
+    @JsonKey(name: 'PickNumber') num? pickNumber,
   }) = _OrderToBeShippedLine;
 
   factory OrderToBeShippedLine.fromJson(Map<String, dynamic> json) =>

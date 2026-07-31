@@ -9,6 +9,7 @@ import '../../../../../../core/jde_auth/jde_session_storage.dart';
 import '../../../../../../core/network/jde_dio_provider.dart';
 import '../../../../../../core/network/jde_error_response.dart';
 import '../api/order_to_be_shipped_api_service.dart';
+import '../dto/order_shipment_confirmation_request.dart';
 import '../dto/order_shipment_confirmation_updated_quantity_request.dart';
 import '../dto/order_to_be_shipped_line.dart';
 import '../dto/order_to_be_shipped_request.dart';
@@ -32,7 +33,7 @@ class OrderToBeShippedRepositoryImpl implements OrderToBeShippedRepository {
 
   @override
   Future<Result<OrderToBeShippedResponse, Failure>> confirmOrderToBeShipped({
-    required String orderNumber,
+    required String pickNumber,
     required String orderType,
     required String orderCompany,
   }) async {
@@ -42,7 +43,7 @@ class OrderToBeShippedRepositoryImpl implements OrderToBeShippedRepository {
       final raw = await _api.confirmOrderToBeShipped(
         OrderToBeShippedRequest(
           deviceName: deviceName,
-          orderNumber: orderNumber,
+          pickNumber: pickNumber,
           orderType: orderType,
           orderCompany: orderCompany,
           token: token,
@@ -70,7 +71,7 @@ class OrderToBeShippedRepositoryImpl implements OrderToBeShippedRepository {
 
   @override
   Future<Result<void, Failure>> confirmShipment({
-    required String orderNumber,
+    required String pickSlipNumber,
     required String orderType,
     required String orderCompany,
   }) async {
@@ -79,9 +80,9 @@ class OrderToBeShippedRepositoryImpl implements OrderToBeShippedRepository {
       final token = await _sessionStorage.readToken() ?? '';
       final response = await _dio.post<dynamic>(
         'JDE_ORCH_56_OrderShipmentConfirmation',
-        data: OrderToBeShippedRequest(
+        data: OrderShipmentConfirmationRequest(
           deviceName: deviceName,
-          orderNumber: orderNumber,
+          pickSlipNumber: pickSlipNumber,
           orderType: orderType,
           orderCompany: orderCompany,
           token: token,

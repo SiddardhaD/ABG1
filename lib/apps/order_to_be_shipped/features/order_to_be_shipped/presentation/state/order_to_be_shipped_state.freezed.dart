@@ -17,7 +17,12 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$OrderToBeShippedState {
-  String get orderNumber => throw _privateConstructorUsedError;
+  // What the user enters/scans to look up an order — JDE's "pick number"
+  // (JDE_ORCH_56_OrderToBeShipped's PickNumber /
+  // JDE_ORCH_56_OrderShipmentConfirmation's Pick_Slip_Number), not the
+  // order number. The actual order number comes back in confirmedLines
+  // once fetched, and is what confirmShipmentWithUpdatedQuantities uses.
+  String get pickNumber => throw _privateConstructorUsedError;
   String get orderType => throw _privateConstructorUsedError;
   String get orderCompany => throw _privateConstructorUsedError;
   OrderToBeShippedStatus get status => throw _privateConstructorUsedError;
@@ -47,7 +52,7 @@ abstract class $OrderToBeShippedStateCopyWith<$Res> {
   ) = _$OrderToBeShippedStateCopyWithImpl<$Res, OrderToBeShippedState>;
   @useResult
   $Res call({
-    String orderNumber,
+    String pickNumber,
     String orderType,
     String orderCompany,
     OrderToBeShippedStatus status,
@@ -77,7 +82,7 @@ class _$OrderToBeShippedStateCopyWithImpl<
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? orderNumber = null,
+    Object? pickNumber = null,
     Object? orderType = null,
     Object? orderCompany = null,
     Object? status = null,
@@ -89,9 +94,9 @@ class _$OrderToBeShippedStateCopyWithImpl<
   }) {
     return _then(
       _value.copyWith(
-            orderNumber: null == orderNumber
-                ? _value.orderNumber
-                : orderNumber // ignore: cast_nullable_to_non_nullable
+            pickNumber: null == pickNumber
+                ? _value.pickNumber
+                : pickNumber // ignore: cast_nullable_to_non_nullable
                       as String,
             orderType: null == orderType
                 ? _value.orderType
@@ -141,7 +146,7 @@ abstract class _$$OrderToBeShippedStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call({
-    String orderNumber,
+    String pickNumber,
     String orderType,
     String orderCompany,
     OrderToBeShippedStatus status,
@@ -168,7 +173,7 @@ class __$$OrderToBeShippedStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? orderNumber = null,
+    Object? pickNumber = null,
     Object? orderType = null,
     Object? orderCompany = null,
     Object? status = null,
@@ -180,9 +185,9 @@ class __$$OrderToBeShippedStateImplCopyWithImpl<$Res>
   }) {
     return _then(
       _$OrderToBeShippedStateImpl(
-        orderNumber: null == orderNumber
-            ? _value.orderNumber
-            : orderNumber // ignore: cast_nullable_to_non_nullable
+        pickNumber: null == pickNumber
+            ? _value.pickNumber
+            : pickNumber // ignore: cast_nullable_to_non_nullable
                   as String,
         orderType: null == orderType
             ? _value.orderType
@@ -225,7 +230,7 @@ class __$$OrderToBeShippedStateImplCopyWithImpl<$Res>
 
 class _$OrderToBeShippedStateImpl extends _OrderToBeShippedState {
   const _$OrderToBeShippedStateImpl({
-    this.orderNumber = '',
+    this.pickNumber = '',
     this.orderType = '',
     this.orderCompany = '',
     this.status = OrderToBeShippedStatus.idle,
@@ -238,9 +243,14 @@ class _$OrderToBeShippedStateImpl extends _OrderToBeShippedState {
   }) : _confirmedLines = confirmedLines,
        super._();
 
+  // What the user enters/scans to look up an order — JDE's "pick number"
+  // (JDE_ORCH_56_OrderToBeShipped's PickNumber /
+  // JDE_ORCH_56_OrderShipmentConfirmation's Pick_Slip_Number), not the
+  // order number. The actual order number comes back in confirmedLines
+  // once fetched, and is what confirmShipmentWithUpdatedQuantities uses.
   @override
   @JsonKey()
-  final String orderNumber;
+  final String pickNumber;
   @override
   @JsonKey()
   final String orderType;
@@ -278,7 +288,7 @@ class _$OrderToBeShippedStateImpl extends _OrderToBeShippedState {
 
   @override
   String toString() {
-    return 'OrderToBeShippedState(orderNumber: $orderNumber, orderType: $orderType, orderCompany: $orderCompany, status: $status, errorMessage: $errorMessage, confirmedLines: $confirmedLines, isConfirmingShipment: $isConfirmingShipment, shipmentConfirmed: $shipmentConfirmed, hasEditedQuantities: $hasEditedQuantities)';
+    return 'OrderToBeShippedState(pickNumber: $pickNumber, orderType: $orderType, orderCompany: $orderCompany, status: $status, errorMessage: $errorMessage, confirmedLines: $confirmedLines, isConfirmingShipment: $isConfirmingShipment, shipmentConfirmed: $shipmentConfirmed, hasEditedQuantities: $hasEditedQuantities)';
   }
 
   @override
@@ -286,8 +296,8 @@ class _$OrderToBeShippedStateImpl extends _OrderToBeShippedState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$OrderToBeShippedStateImpl &&
-            (identical(other.orderNumber, orderNumber) ||
-                other.orderNumber == orderNumber) &&
+            (identical(other.pickNumber, pickNumber) ||
+                other.pickNumber == pickNumber) &&
             (identical(other.orderType, orderType) ||
                 other.orderType == orderType) &&
             (identical(other.orderCompany, orderCompany) ||
@@ -310,7 +320,7 @@ class _$OrderToBeShippedStateImpl extends _OrderToBeShippedState {
   @override
   int get hashCode => Object.hash(
     runtimeType,
-    orderNumber,
+    pickNumber,
     orderType,
     orderCompany,
     status,
@@ -336,7 +346,7 @@ class _$OrderToBeShippedStateImpl extends _OrderToBeShippedState {
 
 abstract class _OrderToBeShippedState extends OrderToBeShippedState {
   const factory _OrderToBeShippedState({
-    final String orderNumber,
+    final String pickNumber,
     final String orderType,
     final String orderCompany,
     final OrderToBeShippedStatus status,
@@ -348,8 +358,13 @@ abstract class _OrderToBeShippedState extends OrderToBeShippedState {
   }) = _$OrderToBeShippedStateImpl;
   const _OrderToBeShippedState._() : super._();
 
+  // What the user enters/scans to look up an order — JDE's "pick number"
+  // (JDE_ORCH_56_OrderToBeShipped's PickNumber /
+  // JDE_ORCH_56_OrderShipmentConfirmation's Pick_Slip_Number), not the
+  // order number. The actual order number comes back in confirmedLines
+  // once fetched, and is what confirmShipmentWithUpdatedQuantities uses.
   @override
-  String get orderNumber;
+  String get pickNumber;
   @override
   String get orderType;
   @override
