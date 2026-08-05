@@ -2,6 +2,17 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
+
+    <!-- BLE peripheral (GATT server) role — broadcasts scanned barcodes to
+         a desktop companion app. Legacy permissions capped to pre-Android 12
+         (API 30) since BLUETOOTH_ADVERTISE/BLUETOOTH_CONNECT replace them
+         from API 31 onward. -->
+    <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
+    <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
+
     <application
         android:label="@string/app_name"
         android:name="${applicationName}"

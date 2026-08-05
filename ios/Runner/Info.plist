@@ -43,6 +43,8 @@
 	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>Camera access is used to scan barcodes and QR codes.</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Bluetooth is used to broadcast scanned barcodes to the desktop companion app.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>

@@ -52,6 +52,10 @@ dependencies:
   # Device identity (sent as `deviceName` on JDE login/logout)
   device_info_plus: ^11.2.0
 
+  # BLE peripheral role — broadcasts scanned barcodes to the desktop
+  # companion app (Order to be Shipped app)
+  bluetooth_low_energy: ^6.2.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

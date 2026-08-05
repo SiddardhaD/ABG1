@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../../core/base/base_consumer_state.dart';
+import '../../../../../../core/ble/ble_broadcast_controller.dart';
 import '../../../../../../core/common/widgets/app_text_field.dart';
 import '../../../../../../core/common/widgets/exit_confirmation.dart';
 import '../../../../../../core/common/widgets/primary_button.dart';
@@ -10,6 +11,7 @@ import '../../../../../../core/scanner/barcode_scanner_screen.dart';
 import '../../../../../../core/theme/app_colors.dart';
 import '../../../../../../core/theme/app_radius.dart';
 import '../../../../../../core/theme/app_spacing.dart';
+import '../../../broadcast/presentation/ui/broadcast_screen.dart';
 import '../../data/dto/order_to_be_shipped_line.dart';
 import '../state/order_to_be_shipped_state.dart';
 import '../view_model/order_to_be_shipped_view_model.dart';
@@ -146,6 +148,7 @@ class _OrderToBeShippedScreenState extends BaseConsumerState<OrderToBeShippedScr
     final textTheme = Theme.of(context).textTheme;
     final state = ref.watch(orderToBeShippedViewModelProvider);
     final vm = ref.read(orderToBeShippedViewModelProvider.notifier);
+    final bleState = ref.watch(bleBroadcastControllerProvider);
     _syncControllers(state);
 
     return PopScope(
@@ -164,6 +167,20 @@ class _OrderToBeShippedScreenState extends BaseConsumerState<OrderToBeShippedScr
             ],
           ),
           actions: [
+            IconButton(
+              icon: Icon(
+                bleState.isConnected ? Icons.bluetooth_connected : Icons.bluetooth,
+                color: bleState.isConnected
+                    ? (Theme.of(context).brightness == Brightness.dark
+                        ? AppColors.successDark
+                        : AppColors.success)
+                    : (bleState.isAdvertising ? scheme.primary : null),
+              ),
+              tooltip: 'Connect to desktop',
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const BroadcastScreen()),
+              ),
+            ),
             IconButton(
               icon: const Icon(Icons.logout),
               tooltip: 'Log out',
@@ -262,7 +279,7 @@ class _OrderToBeShippedScreenState extends BaseConsumerState<OrderToBeShippedScr
 /// a plain elevated card (not a colored banner) with a small status badge —
 /// color is used sparingly (badge + a couple of icons) rather than washing
 /// the whole panel, which is what made the old "confirmed" green look loud.
-class _ShipmentDetailsCard extends StatelessWidget {
+class _ShipmentDetailsCard extends ConsumerWidget {
   const _ShipmentDetailsCard({
     required this.lines,
     required this.isConfirming,
@@ -283,10 +300,27 @@ class _ShipmentDetailsCard extends StatelessWidget {
 
   static String _dash(String? value) => (value == null || value.trim().isEmpty) ? '—' : value.trim();
 
+  Future<void> _sendToDesktop(BuildContext context, WidgetRef ref, OrderToBeShippedLine header) async {
+    final payload = [
+      _dash(header.orderType),
+      '${header.orderNumber ?? ''}',
+      '${header.pickNumber ?? ''}',
+    ].join('-');
+
+    final success = await ref.read(bleBroadcastControllerProvider.notifier).send(payload);
+    if (!context.mounted) return;
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(content: Text(success ? 'Sent "$payload" to desktop.' : 'Send failed — is the desktop connected?')),
+      );
+  }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
     final header = lines.isNotEmpty ? lines.first : null;
+    final bleConnected = ref.watch(bleBroadcastControllerProvider.select((s) => s.isConnected));
 
     return Card(
       child: Padding(
@@ -330,6 +364,12 @@ class _ShipmentDetailsCard extends StatelessWidget {
                 lines: lines,
                 editable: !isConfirmed,
                 onQuantityChanged: onQuantityChanged,
+              ),
+              AppSpacing.gapLg,
+              OutlinedButton.icon(
+                onPressed: bleConnected ? () => _sendToDesktop(context, ref, header) : null,
+                icon: const Icon(Icons.bluetooth),
+                label: Text(bleConnected ? 'Send to Desktop' : 'Desktop Not Connected'),
               ),
             ],
             AppSpacing.gapLg,

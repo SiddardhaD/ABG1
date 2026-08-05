@@ -21,7 +21,8 @@ android {
 
     defaultConfig {
         applicationId = "com.abg"
-        minSdk = flutter.minSdkVersion
+        // bluetooth_low_energy (BLE peripheral/GATT server role) requires 24+.
+        minSdk = maxOf(24, flutter.minSdkVersion)
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
