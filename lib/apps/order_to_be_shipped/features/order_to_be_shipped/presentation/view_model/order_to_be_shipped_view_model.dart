@@ -109,12 +109,10 @@ class OrderToBeShippedViewModel extends _$OrderToBeShippedViewModel {
     final repository = ref.read(orderToBeShippedRepositoryProvider);
     final result = state.hasEditedQuantities
         ? await repository.confirmShipmentWithUpdatedQuantities(
-            // Unlike the plain confirmation call, this endpoint's spec
-            // wasn't changed to pick number — it still wants the real order
-            // number, which only exists in the fetched line data now (the
-            // user enters a pick number, not an order number).
-            orderNumber:
-                '${state.confirmedLines.isEmpty ? '' : state.confirmedLines.first.orderNumber ?? ''}',
+            // Both confirmation endpoints are now keyed by pick number at
+            // the top level; the per-line order number comes from each
+            // fetched line itself (see ShipmentDetailLine.orderNumber).
+            pickSlipNumber: state.pickNumber.trim(),
             orderType: state.orderType.trim(),
             orderCompany: state.orderCompany.trim(),
             lines: state.confirmedLines,

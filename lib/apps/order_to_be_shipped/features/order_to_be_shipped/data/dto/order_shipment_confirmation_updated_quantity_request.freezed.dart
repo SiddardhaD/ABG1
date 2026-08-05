@@ -27,8 +27,8 @@ mixin _$OrderShipmentConfirmationUpdatedQuantityRequest {
   String get deviceName => throw _privateConstructorUsedError;
   @JsonKey(name: 'CompanyKeyOrderNo')
   String get companyKeyOrderNo => throw _privateConstructorUsedError;
-  @JsonKey(name: 'DocumentOrderInvoiceE')
-  String get documentOrderInvoiceE => throw _privateConstructorUsedError;
+  @JsonKey(name: 'Pick_Slip_Number')
+  String get pickSlipNumber => throw _privateConstructorUsedError;
   @JsonKey(name: 'OrderType')
   String get orderType => throw _privateConstructorUsedError;
   @JsonKey(name: 'ShipmentDetails')
@@ -62,7 +62,7 @@ abstract class $OrderShipmentConfirmationUpdatedQuantityRequestCopyWith<$Res> {
   $Res call({
     String deviceName,
     @JsonKey(name: 'CompanyKeyOrderNo') String companyKeyOrderNo,
-    @JsonKey(name: 'DocumentOrderInvoiceE') String documentOrderInvoiceE,
+    @JsonKey(name: 'Pick_Slip_Number') String pickSlipNumber,
     @JsonKey(name: 'OrderType') String orderType,
     @JsonKey(name: 'ShipmentDetails') List<ShipmentDetailLine> shipmentDetails,
     String token,
@@ -92,7 +92,7 @@ class _$OrderShipmentConfirmationUpdatedQuantityRequestCopyWithImpl<
   $Res call({
     Object? deviceName = null,
     Object? companyKeyOrderNo = null,
-    Object? documentOrderInvoiceE = null,
+    Object? pickSlipNumber = null,
     Object? orderType = null,
     Object? shipmentDetails = null,
     Object? token = null,
@@ -107,9 +107,9 @@ class _$OrderShipmentConfirmationUpdatedQuantityRequestCopyWithImpl<
                 ? _value.companyKeyOrderNo
                 : companyKeyOrderNo // ignore: cast_nullable_to_non_nullable
                       as String,
-            documentOrderInvoiceE: null == documentOrderInvoiceE
-                ? _value.documentOrderInvoiceE
-                : documentOrderInvoiceE // ignore: cast_nullable_to_non_nullable
+            pickSlipNumber: null == pickSlipNumber
+                ? _value.pickSlipNumber
+                : pickSlipNumber // ignore: cast_nullable_to_non_nullable
                       as String,
             orderType: null == orderType
                 ? _value.orderType
@@ -143,7 +143,7 @@ abstract class _$$OrderShipmentConfirmationUpdatedQuantityRequestImplCopyWith<
   $Res call({
     String deviceName,
     @JsonKey(name: 'CompanyKeyOrderNo') String companyKeyOrderNo,
-    @JsonKey(name: 'DocumentOrderInvoiceE') String documentOrderInvoiceE,
+    @JsonKey(name: 'Pick_Slip_Number') String pickSlipNumber,
     @JsonKey(name: 'OrderType') String orderType,
     @JsonKey(name: 'ShipmentDetails') List<ShipmentDetailLine> shipmentDetails,
     String token,
@@ -171,7 +171,7 @@ class __$$OrderShipmentConfirmationUpdatedQuantityRequestImplCopyWithImpl<$Res>
   $Res call({
     Object? deviceName = null,
     Object? companyKeyOrderNo = null,
-    Object? documentOrderInvoiceE = null,
+    Object? pickSlipNumber = null,
     Object? orderType = null,
     Object? shipmentDetails = null,
     Object? token = null,
@@ -186,9 +186,9 @@ class __$$OrderShipmentConfirmationUpdatedQuantityRequestImplCopyWithImpl<$Res>
             ? _value.companyKeyOrderNo
             : companyKeyOrderNo // ignore: cast_nullable_to_non_nullable
                   as String,
-        documentOrderInvoiceE: null == documentOrderInvoiceE
-            ? _value.documentOrderInvoiceE
-            : documentOrderInvoiceE // ignore: cast_nullable_to_non_nullable
+        pickSlipNumber: null == pickSlipNumber
+            ? _value.pickSlipNumber
+            : pickSlipNumber // ignore: cast_nullable_to_non_nullable
                   as String,
         orderType: null == orderType
             ? _value.orderType
@@ -214,7 +214,7 @@ class _$OrderShipmentConfirmationUpdatedQuantityRequestImpl
   const _$OrderShipmentConfirmationUpdatedQuantityRequestImpl({
     required this.deviceName,
     @JsonKey(name: 'CompanyKeyOrderNo') required this.companyKeyOrderNo,
-    @JsonKey(name: 'DocumentOrderInvoiceE') required this.documentOrderInvoiceE,
+    @JsonKey(name: 'Pick_Slip_Number') required this.pickSlipNumber,
     @JsonKey(name: 'OrderType') required this.orderType,
     @JsonKey(name: 'ShipmentDetails')
     required final List<ShipmentDetailLine> shipmentDetails,
@@ -231,8 +231,8 @@ class _$OrderShipmentConfirmationUpdatedQuantityRequestImpl
   @JsonKey(name: 'CompanyKeyOrderNo')
   final String companyKeyOrderNo;
   @override
-  @JsonKey(name: 'DocumentOrderInvoiceE')
-  final String documentOrderInvoiceE;
+  @JsonKey(name: 'Pick_Slip_Number')
+  final String pickSlipNumber;
   @override
   @JsonKey(name: 'OrderType')
   final String orderType;
@@ -250,7 +250,7 @@ class _$OrderShipmentConfirmationUpdatedQuantityRequestImpl
 
   @override
   String toString() {
-    return 'OrderShipmentConfirmationUpdatedQuantityRequest(deviceName: $deviceName, companyKeyOrderNo: $companyKeyOrderNo, documentOrderInvoiceE: $documentOrderInvoiceE, orderType: $orderType, shipmentDetails: $shipmentDetails, token: $token)';
+    return 'OrderShipmentConfirmationUpdatedQuantityRequest(deviceName: $deviceName, companyKeyOrderNo: $companyKeyOrderNo, pickSlipNumber: $pickSlipNumber, orderType: $orderType, shipmentDetails: $shipmentDetails, token: $token)';
   }
 
   @override
@@ -262,8 +262,8 @@ class _$OrderShipmentConfirmationUpdatedQuantityRequestImpl
                 other.deviceName == deviceName) &&
             (identical(other.companyKeyOrderNo, companyKeyOrderNo) ||
                 other.companyKeyOrderNo == companyKeyOrderNo) &&
-            (identical(other.documentOrderInvoiceE, documentOrderInvoiceE) ||
-                other.documentOrderInvoiceE == documentOrderInvoiceE) &&
+            (identical(other.pickSlipNumber, pickSlipNumber) ||
+                other.pickSlipNumber == pickSlipNumber) &&
             (identical(other.orderType, orderType) ||
                 other.orderType == orderType) &&
             const DeepCollectionEquality().equals(
@@ -279,7 +279,7 @@ class _$OrderShipmentConfirmationUpdatedQuantityRequestImpl
     runtimeType,
     deviceName,
     companyKeyOrderNo,
-    documentOrderInvoiceE,
+    pickSlipNumber,
     orderType,
     const DeepCollectionEquality().hash(_shipmentDetails),
     token,
@@ -309,8 +309,7 @@ abstract class _OrderShipmentConfirmationUpdatedQuantityRequest
   const factory _OrderShipmentConfirmationUpdatedQuantityRequest({
     required final String deviceName,
     @JsonKey(name: 'CompanyKeyOrderNo') required final String companyKeyOrderNo,
-    @JsonKey(name: 'DocumentOrderInvoiceE')
-    required final String documentOrderInvoiceE,
+    @JsonKey(name: 'Pick_Slip_Number') required final String pickSlipNumber,
     @JsonKey(name: 'OrderType') required final String orderType,
     @JsonKey(name: 'ShipmentDetails')
     required final List<ShipmentDetailLine> shipmentDetails,
@@ -327,8 +326,8 @@ abstract class _OrderShipmentConfirmationUpdatedQuantityRequest
   @JsonKey(name: 'CompanyKeyOrderNo')
   String get companyKeyOrderNo;
   @override
-  @JsonKey(name: 'DocumentOrderInvoiceE')
-  String get documentOrderInvoiceE;
+  @JsonKey(name: 'Pick_Slip_Number')
+  String get pickSlipNumber;
   @override
   @JsonKey(name: 'OrderType')
   String get orderType;

@@ -12,7 +12,7 @@ _$$OrderShipmentConfirmationUpdatedQuantityRequestImplFromJson(
 ) => _$OrderShipmentConfirmationUpdatedQuantityRequestImpl(
   deviceName: json['deviceName'] as String,
   companyKeyOrderNo: json['CompanyKeyOrderNo'] as String,
-  documentOrderInvoiceE: json['DocumentOrderInvoiceE'] as String,
+  pickSlipNumber: json['Pick_Slip_Number'] as String,
   orderType: json['OrderType'] as String,
   shipmentDetails: (json['ShipmentDetails'] as List<dynamic>)
       .map((e) => ShipmentDetailLine.fromJson(e as Map<String, dynamic>))
@@ -26,7 +26,7 @@ _$$OrderShipmentConfirmationUpdatedQuantityRequestImplToJson(
 ) => <String, dynamic>{
   'deviceName': instance.deviceName,
   'CompanyKeyOrderNo': instance.companyKeyOrderNo,
-  'DocumentOrderInvoiceE': instance.documentOrderInvoiceE,
+  'Pick_Slip_Number': instance.pickSlipNumber,
   'OrderType': instance.orderType,
   'ShipmentDetails': instance.shipmentDetails.map((e) => e.toJson()).toList(),
   'token': instance.token,

@@ -21,7 +21,7 @@ class OrderShipmentConfirmationUpdatedQuantityRequest
   const factory OrderShipmentConfirmationUpdatedQuantityRequest({
     required String deviceName,
     @JsonKey(name: 'CompanyKeyOrderNo') required String companyKeyOrderNo,
-    @JsonKey(name: 'DocumentOrderInvoiceE') required String documentOrderInvoiceE,
+    @JsonKey(name: 'Pick_Slip_Number') required String pickSlipNumber,
     @JsonKey(name: 'OrderType') required String orderType,
     @JsonKey(name: 'ShipmentDetails') required List<ShipmentDetailLine> shipmentDetails,
     required String token,

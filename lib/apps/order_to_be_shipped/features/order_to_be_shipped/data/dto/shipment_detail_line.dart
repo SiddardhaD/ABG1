@@ -13,6 +13,7 @@ class ShipmentDetailLine with _$ShipmentDetailLine {
     @JsonKey(name: 'LineNumber') required String lineNumber,
     @JsonKey(name: 'ItemNumber') required String itemNumber,
     @JsonKey(name: 'QuantityShipped') required String quantityShipped,
+    @JsonKey(name: 'OrderNumber') required String orderNumber,
   }) = _ShipmentDetailLine;
 
   factory ShipmentDetailLine.fromJson(Map<String, dynamic> json) =>

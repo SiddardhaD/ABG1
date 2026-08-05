@@ -7,7 +7,7 @@ part of 'order_to_be_shipped_view_model.dart';
 // **************************************************************************
 
 String _$orderToBeShippedViewModelHash() =>
-    r'1c3f43d5daf251ebbfd48870411c6a6ee9d0fed9';
+    r'b3e543e57bf22ab6bc5762bf181fceafaa09f587';
 
 /// View model for the Order to be Shipped screen. Holds the three order
 /// fields and drives [OrderToBeShippedRepository].

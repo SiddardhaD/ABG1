@@ -12,6 +12,7 @@ _$ShipmentDetailLineImpl _$$ShipmentDetailLineImplFromJson(
   lineNumber: json['LineNumber'] as String,
   itemNumber: json['ItemNumber'] as String,
   quantityShipped: json['QuantityShipped'] as String,
+  orderNumber: json['OrderNumber'] as String,
 );
 
 Map<String, dynamic> _$$ShipmentDetailLineImplToJson(
@@ -20,4 +21,5 @@ Map<String, dynamic> _$$ShipmentDetailLineImplToJson(
   'LineNumber': instance.lineNumber,
   'ItemNumber': instance.itemNumber,
   'QuantityShipped': instance.quantityShipped,
+  'OrderNumber': instance.orderNumber,
 };

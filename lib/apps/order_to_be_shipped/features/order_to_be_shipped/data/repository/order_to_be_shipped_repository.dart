@@ -27,9 +27,11 @@ abstract class OrderToBeShippedRepository {
 
   /// Confirms the shipment when the user edited one or more lines' shipped
   /// quantity (`JDE_ORCH_56_OrderShipmentConfirmationUpdatedQua`) — [lines]
-  /// must include every line, edited or not. Success is judged by HTTP 200.
+  /// must include every line, edited or not (each carries its own order
+  /// number). Looked up by [pickSlipNumber], same as [confirmShipment].
+  /// Success is judged by HTTP 200.
   Future<Result<void, Failure>> confirmShipmentWithUpdatedQuantities({
-    required String orderNumber,
+    required String pickSlipNumber,
     required String orderType,
     required String orderCompany,
     required List<OrderToBeShippedLine> lines,

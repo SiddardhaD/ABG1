@@ -27,6 +27,8 @@ mixin _$ShipmentDetailLine {
   String get itemNumber => throw _privateConstructorUsedError;
   @JsonKey(name: 'QuantityShipped')
   String get quantityShipped => throw _privateConstructorUsedError;
+  @JsonKey(name: 'OrderNumber')
+  String get orderNumber => throw _privateConstructorUsedError;
 
   /// Serializes this ShipmentDetailLine to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -49,6 +51,7 @@ abstract class $ShipmentDetailLineCopyWith<$Res> {
     @JsonKey(name: 'LineNumber') String lineNumber,
     @JsonKey(name: 'ItemNumber') String itemNumber,
     @JsonKey(name: 'QuantityShipped') String quantityShipped,
+    @JsonKey(name: 'OrderNumber') String orderNumber,
   });
 }
 
@@ -70,6 +73,7 @@ class _$ShipmentDetailLineCopyWithImpl<$Res, $Val extends ShipmentDetailLine>
     Object? lineNumber = null,
     Object? itemNumber = null,
     Object? quantityShipped = null,
+    Object? orderNumber = null,
   }) {
     return _then(
       _value.copyWith(
@@ -84,6 +88,10 @@ class _$ShipmentDetailLineCopyWithImpl<$Res, $Val extends ShipmentDetailLine>
             quantityShipped: null == quantityShipped
                 ? _value.quantityShipped
                 : quantityShipped // ignore: cast_nullable_to_non_nullable
+                      as String,
+            orderNumber: null == orderNumber
+                ? _value.orderNumber
+                : orderNumber // ignore: cast_nullable_to_non_nullable
                       as String,
           )
           as $Val,
@@ -104,6 +112,7 @@ abstract class _$$ShipmentDetailLineImplCopyWith<$Res>
     @JsonKey(name: 'LineNumber') String lineNumber,
     @JsonKey(name: 'ItemNumber') String itemNumber,
     @JsonKey(name: 'QuantityShipped') String quantityShipped,
+    @JsonKey(name: 'OrderNumber') String orderNumber,
   });
 }
 
@@ -124,6 +133,7 @@ class __$$ShipmentDetailLineImplCopyWithImpl<$Res>
     Object? lineNumber = null,
     Object? itemNumber = null,
     Object? quantityShipped = null,
+    Object? orderNumber = null,
   }) {
     return _then(
       _$ShipmentDetailLineImpl(
@@ -139,6 +149,10 @@ class __$$ShipmentDetailLineImplCopyWithImpl<$Res>
             ? _value.quantityShipped
             : quantityShipped // ignore: cast_nullable_to_non_nullable
                   as String,
+        orderNumber: null == orderNumber
+            ? _value.orderNumber
+            : orderNumber // ignore: cast_nullable_to_non_nullable
+                  as String,
       ),
     );
   }
@@ -151,6 +165,7 @@ class _$ShipmentDetailLineImpl implements _ShipmentDetailLine {
     @JsonKey(name: 'LineNumber') required this.lineNumber,
     @JsonKey(name: 'ItemNumber') required this.itemNumber,
     @JsonKey(name: 'QuantityShipped') required this.quantityShipped,
+    @JsonKey(name: 'OrderNumber') required this.orderNumber,
   });
 
   factory _$ShipmentDetailLineImpl.fromJson(Map<String, dynamic> json) =>
@@ -165,10 +180,13 @@ class _$ShipmentDetailLineImpl implements _ShipmentDetailLine {
   @override
   @JsonKey(name: 'QuantityShipped')
   final String quantityShipped;
+  @override
+  @JsonKey(name: 'OrderNumber')
+  final String orderNumber;
 
   @override
   String toString() {
-    return 'ShipmentDetailLine(lineNumber: $lineNumber, itemNumber: $itemNumber, quantityShipped: $quantityShipped)';
+    return 'ShipmentDetailLine(lineNumber: $lineNumber, itemNumber: $itemNumber, quantityShipped: $quantityShipped, orderNumber: $orderNumber)';
   }
 
   @override
@@ -181,13 +199,20 @@ class _$ShipmentDetailLineImpl implements _ShipmentDetailLine {
             (identical(other.itemNumber, itemNumber) ||
                 other.itemNumber == itemNumber) &&
             (identical(other.quantityShipped, quantityShipped) ||
-                other.quantityShipped == quantityShipped));
+                other.quantityShipped == quantityShipped) &&
+            (identical(other.orderNumber, orderNumber) ||
+                other.orderNumber == orderNumber));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, lineNumber, itemNumber, quantityShipped);
+  int get hashCode => Object.hash(
+    runtimeType,
+    lineNumber,
+    itemNumber,
+    quantityShipped,
+    orderNumber,
+  );
 
   /// Create a copy of ShipmentDetailLine
   /// with the given fields replaced by the non-null parameter values.
@@ -211,6 +236,7 @@ abstract class _ShipmentDetailLine implements ShipmentDetailLine {
     @JsonKey(name: 'LineNumber') required final String lineNumber,
     @JsonKey(name: 'ItemNumber') required final String itemNumber,
     @JsonKey(name: 'QuantityShipped') required final String quantityShipped,
+    @JsonKey(name: 'OrderNumber') required final String orderNumber,
   }) = _$ShipmentDetailLineImpl;
 
   factory _ShipmentDetailLine.fromJson(Map<String, dynamic> json) =
@@ -225,6 +251,9 @@ abstract class _ShipmentDetailLine implements ShipmentDetailLine {
   @override
   @JsonKey(name: 'QuantityShipped')
   String get quantityShipped;
+  @override
+  @JsonKey(name: 'OrderNumber')
+  String get orderNumber;
 
   /// Create a copy of ShipmentDetailLine
   /// with the given fields replaced by the non-null parameter values.

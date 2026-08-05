@@ -118,7 +118,7 @@ class OrderToBeShippedRepositoryImpl implements OrderToBeShippedRepository {
 
   @override
   Future<Result<void, Failure>> confirmShipmentWithUpdatedQuantities({
-    required String orderNumber,
+    required String pickSlipNumber,
     required String orderType,
     required String orderCompany,
     required List<OrderToBeShippedLine> lines,
@@ -131,7 +131,7 @@ class OrderToBeShippedRepositoryImpl implements OrderToBeShippedRepository {
         data: OrderShipmentConfirmationUpdatedQuantityRequest(
           deviceName: deviceName,
           companyKeyOrderNo: orderCompany,
-          documentOrderInvoiceE: orderNumber,
+          pickSlipNumber: pickSlipNumber,
           orderType: orderType,
           shipmentDetails: [
             for (final line in lines)
@@ -141,6 +141,9 @@ class OrderToBeShippedRepositoryImpl implements OrderToBeShippedRepository {
                 lineNumber: (line.lineNumber ?? 0).toStringAsFixed(3),
                 itemNumber: line.itemNumber ?? '',
                 quantityShipped: '${line.quantityShipped ?? 0}',
+                // Each line now carries its own order number (the request
+                // is keyed by pick number at the top level instead).
+                orderNumber: '${line.orderNumber ?? ''}',
               ),
           ],
           token: token,
