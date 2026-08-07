@@ -12,20 +12,31 @@ import '../theme/app_spacing.dart';
 
 /// Pushes [BarcodeScannerScreen] and returns the scanned value, or `null` if
 /// the user backs out without scanning.
-Future<String?> showBarcodeScanner(BuildContext context, {String? title}) {
+///
+/// [forceCameraOnly] skips Zebra DataWedge detection entirely and always
+/// uses the phone camera — useful for testing the camera path on a device
+/// (Zebra or not) without needing to fake DataWedge's absence.
+Future<String?> showBarcodeScanner(
+  BuildContext context, {
+  String? title,
+  bool forceCameraOnly = false,
+}) {
   return Navigator.of(context).push<String>(
-    MaterialPageRoute(builder: (context) => BarcodeScannerScreen(title: title)),
+    MaterialPageRoute(
+      builder: (context) => BarcodeScannerScreen(title: title, forceCameraOnly: forceCameraOnly),
+    ),
   );
 }
 
 /// Hybrid barcode scanner: uses the phone camera on regular devices, and
 /// Zebra DataWedge hardware scanning (physical trigger button) when running
 /// on a Zebra device with DataWedge installed. Falls back to the camera if
-/// DataWedge isn't available.
+/// DataWedge isn't available, or always if [forceCameraOnly] is set.
 class BarcodeScannerScreen extends StatefulWidget {
-  const BarcodeScannerScreen({super.key, this.title});
+  const BarcodeScannerScreen({super.key, this.title, this.forceCameraOnly = false});
 
   final String? title;
+  final bool forceCameraOnly;
 
   @override
   State<BarcodeScannerScreen> createState() => _BarcodeScannerScreenState();

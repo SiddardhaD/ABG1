@@ -11,6 +11,12 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE"/>
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
+    <!-- Pre-Android 12 BLE peripheral authorization goes through Location
+         permission instead of BLUETOOTH_ADVERTISE/BLUETOOTH_CONNECT (see
+         bluetooth_low_energy_android's PeripheralManagerImpl) — without
+         these, devices on Android 11 and below can never authorize. -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" android:maxSdkVersion="30"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" android:maxSdkVersion="30"/>
     <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
 
     <application

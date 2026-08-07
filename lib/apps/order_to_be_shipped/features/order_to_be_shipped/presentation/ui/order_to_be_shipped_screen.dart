@@ -61,9 +61,34 @@ class _OrderToBeShippedScreenState extends BaseConsumerState<OrderToBeShippedScr
 
     final vm = ref.read(orderToBeShippedViewModelProvider.notifier);
     final parsed = vm.applyScannedBarcode(result);
-    if (parsed) {
-      await vm.fetchDetails();
+    if (!parsed) return;
+
+    await vm.fetchDetails();
+    if (!mounted) return;
+
+    // Scan-triggered fetches auto-forward to the desktop bridge as soon as
+    // the fetch succeeds — no separate manual "Send to Desktop" tap needed
+    // for the scan flow. The button on the details card still covers manual
+    // entry / resends. The payload is built from the scanned fields
+    // (Order Company/Type/Pick Number, already in state from
+    // applyScannedBarcode), not from the API response.
+    final fetchState = ref.read(orderToBeShippedViewModelProvider);
+    if (fetchState.status == OrderToBeShippedStatus.success) {
+      await _sendToDesktop(fetchState);
     }
+  }
+
+  Future<void> _sendToDesktop(OrderToBeShippedState state) async {
+    final payload = _desktopPayload(state);
+    final success = await ref.read(bleBroadcastControllerProvider.notifier).send(payload);
+    if (!mounted) return;
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          content: Text(success ? 'Sent "$payload" to desktop.' : 'Could not send to desktop — is it connected?'),
+        ),
+      );
   }
 
   /// Runs the confirm-shipment call, then always shows a result popup
@@ -275,6 +300,19 @@ class _OrderToBeShippedScreenState extends BaseConsumerState<OrderToBeShippedScr
   }
 }
 
+/// Formats the scanned/entered order fields — Order Company-Order Type-Pick
+/// Number, the same three fields the scan fills into this screen via
+/// [OrderToBeShippedViewModel.applyScannedBarcode] — as the desktop bridge's
+/// barcode payload. Shared by both the scan-triggered auto-send and the
+/// manual "Send to Desktop" button; built from state, not the API response.
+String _desktopPayload(OrderToBeShippedState state) {
+  return [
+    state.orderCompany.trim(),
+    state.orderType.trim(),
+    state.pickNumber.trim(),
+  ].join('-');
+}
+
 /// Order summary + shipment grid, shown after a successful fetch. Styled as
 /// a plain elevated card (not a colored banner) with a small status badge —
 /// color is used sparingly (badge + a couple of icons) rather than washing
@@ -300,12 +338,8 @@ class _ShipmentDetailsCard extends ConsumerWidget {
 
   static String _dash(String? value) => (value == null || value.trim().isEmpty) ? '—' : value.trim();
 
-  Future<void> _sendToDesktop(BuildContext context, WidgetRef ref, OrderToBeShippedLine header) async {
-    final payload = [
-      _dash(header.orderType),
-      '${header.orderNumber ?? ''}',
-      '${header.pickNumber ?? ''}',
-    ].join('-');
+  Future<void> _sendToDesktop(BuildContext context, WidgetRef ref) async {
+    final payload = _desktopPayload(ref.read(orderToBeShippedViewModelProvider));
 
     final success = await ref.read(bleBroadcastControllerProvider.notifier).send(payload);
     if (!context.mounted) return;
@@ -367,7 +401,7 @@ class _ShipmentDetailsCard extends ConsumerWidget {
               ),
               AppSpacing.gapLg,
               OutlinedButton.icon(
-                onPressed: bleConnected ? () => _sendToDesktop(context, ref, header) : null,
+                onPressed: bleConnected ? () => _sendToDesktop(context, ref) : null,
                 icon: const Icon(Icons.bluetooth),
                 label: Text(bleConnected ? 'Send to Desktop' : 'Desktop Not Connected'),
               ),
